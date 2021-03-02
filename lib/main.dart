@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -5,14 +6,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SAHARA',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
+      // title: 'SAHARA',
+      theme: ThemeData.dark(
+          // primaryColor: Color(0XFFB5121B),
+          // primaryColor: Colors.red[200],
+          ),
       home: OpenApp(),
     );
   }
@@ -23,23 +24,54 @@ class OpenApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Safety in Schools'),
+        title: Center(
+          child: Image.asset(
+            'images/SIS Logo.png',
+            width: 240,
+          ),
+        ),
       ),
       body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Text(
-              'SAHARA',
+            Container(
+              child: Column(
+                children: [
+                  Text(
+                    'SAHARA',
+                    style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'Safety & Hazard Risk Assessment App',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Text(
-              'Safety & Hazard Risk Assessment App',
-              style: Theme.of(context).textTheme.headline4,
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 60),
+                child: Image.asset(
+                  'images/SIS Logo.png',
+                  width: 300,
+                ),
+              ),
             ),
             FlatButton(
-              color: Colors.red,
+              padding: EdgeInsets.fromLTRB(100, 15, 100, 15),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              color: Color(0XFFB5121B),
+              textColor: Color(0xFFFFFFFF),
               onPressed: () {},
-              child: Text('Enter'),
+              child: Text(
+                'Enter',
+                style: TextStyle(fontSize: 20),
+              ),
             ),
           ],
         ),
@@ -47,50 +79,3 @@ class OpenApp extends StatelessWidget {
     );
   }
 }
-//
-// class MyHomePage extends StatefulWidget {
-//   MyHomePage({Key key, this.title}) : super(key: key);
-//
-//   final String title;
-//
-//   @override
-//   _MyHomePageState createState() => _MyHomePageState();
-// }
-//
-// class _MyHomePageState extends State<MyHomePage> {
-//   int _counter = 0;
-//
-//   void _incrementCounter() {
-//     setState(() {
-//       _counter++;
-//     });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(widget.title),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             Text(
-//               'You have pushed the button this many times:',
-//             ),
-//             Text(
-//               '$_counter',
-//               style: Theme.of(context).textTheme.headline4,
-//             ),
-//           ],
-//         ),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: _incrementCounter,
-//         tooltip: 'Increment',
-//         child: Icon(Icons.add),
-//       ), // This trailing comma makes auto-formatting nicer for build methods.
-//     );
-//   }
-// }
