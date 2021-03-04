@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:risk_assessment_flutter/industry.dart';
+import 'workplace_hazards.dart';
 
 class Environment extends StatelessWidget {
   @override
@@ -63,7 +65,11 @@ class EnvironmentBox extends StatelessWidget {
         // textColor: Color(0xFFFFFFFF),
         // splashColor: Colors.grey,
         elevation: 10,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return WorkplaceHazards();
+          }));
+        },
         child: Text(
           environmentName,
           style: TextStyle(fontSize: 20),
