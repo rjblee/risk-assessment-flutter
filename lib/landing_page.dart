@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'landing_page.dart';
+import 'agreement.dart';
 
-class OpenApp extends StatelessWidget {
+class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,6 +12,7 @@ class OpenApp extends StatelessWidget {
             width: 240,
           ),
         ),
+        automaticallyImplyLeading: false,
       ),
       body: Container(
         child: Column(
@@ -20,26 +21,27 @@ class OpenApp extends StatelessWidget {
             Container(
               child: Column(
                 children: [
-                  Text(
-                    'SAHARA',
-                    style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'Safety & Hazard Risk Assessment App',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+                  // Text(
+                  //   'SAHARA',
+                  //   style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                  // ),
+                  // Text(
+                  //   'Safety & Hazard Risk Assessment App',
+                  //   style: TextStyle(
+                  //     fontSize: 20,
+                  //   ),
+                  // ),
+                  Image.asset(
+                    'images/SAHARA Logo.png',
+                    width: 380,
                   ),
                 ],
               ),
             ),
             Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 60),
-                child: Image.asset(
-                  'images/SIS Logo.png',
-                  width: 300,
-                ),
+              child: Image.asset(
+                'images/SIS Logo.png',
+                width: 240,
               ),
             ),
             FlatButton(
@@ -51,7 +53,7 @@ class OpenApp extends StatelessWidget {
               textColor: Color(0xFFFFFFFF),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return LandingPage();
+                  return Agreement();
                 }));
               },
               child: Text(
