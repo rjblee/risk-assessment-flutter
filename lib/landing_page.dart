@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
+import 'appbar.dart';
 import 'agreement.dart';
 
 class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Image.asset(
-            'images/SIS Logo.png',
-            width: 240,
-          ),
-        ),
-        automaticallyImplyLeading: false,
-      ),
+      appBar: myAppBar(),
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
