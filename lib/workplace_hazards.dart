@@ -58,60 +58,68 @@ class _WorkplaceHazardsState extends State<WorkplaceHazards> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar(),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
               children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(20),
-                  child: Text(
-                    'Select all that Apply',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(18.0),
-                  child: HazardDropdown('Physical Hazards'),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(18.0),
-                  child: HazardDropdown('Biological Hazards'),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(18.0),
-                  child: HazardDropdown('Chemical Hazards'),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.all(20),
+                          child: Text(
+                            'Select all that Apply',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(18.0),
+                          child: HazardDropdown('Physical Hazards'),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(18.0),
+                          child: HazardDropdown('Biological Hazards'),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(18.0),
+                          child: HazardDropdown('Chemical Hazards'),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
-            Container(
-              padding: EdgeInsets.only(bottom: 50),
-              child: ElevatedButton(
-                child: Text(
-                  "Next",
-                  style: TextStyle(fontSize: 20),
-                ),
-                onPressed: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  //   return SignIn();
-                  // }));
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue[800],
-                  onPrimary: Colors.white,
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0),
-                  ),
-                  padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
-                ),
+          ),
+          Container(
+            padding: EdgeInsets.only(bottom: 50),
+            child: ElevatedButton(
+              child: Text(
+                "Next",
+                style: TextStyle(fontSize: 20),
               ),
-            )
-          ],
-        ),
+              onPressed: () {
+                // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                //   return SignIn();
+                // }));
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue[800],
+                onPrimary: Colors.white,
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
+                padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
