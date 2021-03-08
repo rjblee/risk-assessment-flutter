@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'sign_in.dart';
 
 class Agreement extends StatelessWidget {
   @override
@@ -57,11 +58,9 @@ class Agreement extends StatelessWidget {
             color: Color(0XFFB5121B),
             textColor: Color(0xFFFFFFFF),
             onPressed: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (context) {
-              //   return LocationScreen(
-              //     locationWeather: weatherData,
-              //   );
-              // }));
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return SignIn();
+              }));
             },
             child: Text(
               'Click to Accept',
