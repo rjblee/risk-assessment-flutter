@@ -47,109 +47,19 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                   children: [
                     SliderCard(
                       colour: Color(0xFF2f7edb).withOpacity(0.5),
-                      cardChild: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Text(
-                              'I got enough sleep last night and feel well rested enough to do this job to the best of my abilities',
-                              style: kHeaderTextStyle,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          // SizedBox(
-                          //   height: 4,
-                          // ),
-                          // Text(
-                          //   sliderValue1.toString(),
-                          //   style: kSliderNumberStyle,
-                          // ),
-                          Slider(
-                            value: sliderValue1.toDouble(),
-                            min: 0,
-                            max: 10,
-                            activeColor: kSISColour,
-                            // inactiveColor: kSISColour.withOpacity(0.2),
-                            inactiveColor: Color(0XFF8D8E98),
-                            onChanged: (double newValue) {
-                              setState(() {
-                                sliderValue1 = newValue.round();
-                                print(sliderValue1);
-                              });
-                            },
-                          ),
-                        ],
-                      ),
+                      question:
+                          'I got enough sleep last night and feel well rested enough to do this job to the best of my abilities',
+                      sliderValue: sliderValue1,
                     ),
                     SliderCard(
                       colour: Color(0xFF2f7edb).withOpacity(0.5),
-                      cardChild: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Text(
-                              'I have other things I am \nconcerned about',
-                              style: kHeaderTextStyle,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          // SizedBox(
-                          //   height: 14,
-                          // ),
-                          Text(
-                            sliderValue2.toString(),
-                            style: kSliderNumberStyle,
-                          ),
-                          Slider(
-                            value: sliderValue2.toDouble(),
-                            min: 0,
-                            max: 10,
-                            activeColor: kSISColour,
-                            // inactiveColor: kSISColour.withOpacity(0.2),
-                            inactiveColor: Color(0XFF8D8E98),
-                            onChanged: (double newValue) {
-                              setState(() {
-                                sliderValue2 = newValue.round();
-                              });
-                            },
-                          ),
-                        ],
-                      ),
+                      question: 'I have other things I am \nconcerned about',
+                      sliderValue: sliderValue2,
                     ),
                     SliderCard(
                       colour: Color(0xFF2f7edb).withOpacity(0.5),
-                      cardChild: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Text(
-                              'My current mood',
-                              style: kHeaderTextStyle,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          // SizedBox(
-                          //   height: 14,
-                          // ),
-                          Text(
-                            sliderValue3.toString(),
-                            style: kSliderNumberStyle,
-                          ),
-                          Slider(
-                            value: sliderValue3.toDouble(),
-                            min: 0,
-                            max: 10,
-                            activeColor: kSISColour,
-                            // inactiveColor: kSISColour.withOpacity(0.2),
-                            inactiveColor: Color(0XFF8D8E98),
-                            onChanged: (double newValue) {
-                              setState(() {
-                                sliderValue3 = newValue.round();
-                              });
-                            },
-                          ),
-                        ],
-                      ),
+                      question: 'My current mood',
+                      sliderValue: sliderValue3,
                     ),
                     Container(
                       padding: EdgeInsets.all(50),
