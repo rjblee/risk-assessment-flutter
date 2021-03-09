@@ -32,10 +32,10 @@ class _SliderCardState extends State<SliderCard> {
             // SizedBox(
             //   height: 4,
             // ),
-            Text(
-              widget.sliderValue.toString(),
-              style: kSliderNumberStyle,
-            ),
+            // Text(
+            //   widget.sliderValue.toString(),
+            //   style: kSliderNumberStyle,
+            // ),
             Slider(
               value: widget.sliderValue.toDouble(),
               min: 0,
