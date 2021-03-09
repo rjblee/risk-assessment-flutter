@@ -106,7 +106,7 @@ class _WorkplaceHazardsState extends State<WorkplaceHazards> {
               ),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return MentalWellnessQuesitonnaire();
+                  return MentalWellnessQuestionnaire();
                 }));
               },
               style: ElevatedButton.styleFrom(
