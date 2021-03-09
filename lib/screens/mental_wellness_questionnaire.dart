@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:risk_assessment_flutter/appbar.dart';
 import 'package:risk_assessment_flutter/constants.dart';
-import 'workplace_hazards.dart';
+import 'result.dart';
 import 'package:risk_assessment_flutter/slider_card.dart';
 
 class MentalWellnessQuestionnaire extends StatefulWidget {
@@ -88,7 +88,7 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Text(
-                              'I got enough sleep last night and feel well rested enough to do this job to the best of my abilities',
+                              'I have other things I am \nconcerned about',
                               style: kHeaderTextStyle,
                               textAlign: TextAlign.center,
                             ),
@@ -123,7 +123,7 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Text(
-                              'I got enough sleep last night and feel well rested enough to do this job to the best of my abilities',
+                              'My current mood',
                               style: kHeaderTextStyle,
                               textAlign: TextAlign.center,
                             ),
@@ -151,44 +151,34 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                         ],
                       ),
                     ),
+                    Container(
+                      padding: EdgeInsets.all(50),
+                      child: ElevatedButton(
+                        child: Text(
+                          "Finish",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return Result();
+                          }));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.blue[800],
+                          onPrimary: Colors.white,
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class EnvironmentBox extends StatelessWidget {
-  EnvironmentBox(this.environmentName);
-
-  final String environmentName;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-      child: RaisedButton(
-        padding: EdgeInsets.symmetric(vertical: 30),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        // color: Color(0XFF3F51B5),
-        color: Colors.blue[200],
-        // textColor: Color(0xFFFFFFFF),
-        // splashColor: Colors.grey,
-        elevation: 10,
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return WorkplaceHazards();
-          }));
-        },
-        child: Text(
-          environmentName,
-          style: TextStyle(fontSize: 20),
         ),
       ),
     );
