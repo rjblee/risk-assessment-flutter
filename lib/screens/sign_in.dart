@@ -4,6 +4,7 @@ import 'dart:io';
 import 'industry.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'signup_browser.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -77,11 +78,10 @@ class _SignInState extends State<SignIn> {
                   style: TextStyle(fontSize: 20),
                 ),
                 onPressed: () {
-                  launchURL('https://swiftlearning.com/#!/signIn');
-                  // const WebView(
-                  //   initialUrl: 'https://swiftlearning.com/#!/signIn',
-                  //   javascriptMode: JavascriptMode.unrestricted,
-                  // );
+                  // launchURL('https://swiftlearning.com/#!/signIn');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return SignUpBrowser();
+                  }));
                 },
                 color: Colors.blue[800],
                 textColor: Colors.white,
@@ -128,8 +128,10 @@ void launchURL(String url) async {
   }
 }
 
-// class WebView extends StatefulWidget {
-//   WebView(this.url);
+// ----- Webview Flutter package -----
+
+// class CustomWebView extends StatefulWidget {
+//   CustomWebView(this.url);
 //
 //   final url;
 //
