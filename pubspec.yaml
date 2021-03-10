@@ -27,6 +27,7 @@ dependencies:
   url_launcher: ^5.7.10
   webview_flutter: ^2.0.1
   multi_select_flutter: ^3.1.8
+  flutter_spinkit: ^4.1.2
 
 dev_dependencies:
   flutter_test:
