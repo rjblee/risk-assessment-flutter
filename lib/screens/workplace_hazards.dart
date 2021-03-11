@@ -1,5 +1,7 @@
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:risk_assessment_flutter/constants.dart';
+import 'package:risk_assessment_flutter/next_button.dart';
 import '../appbar.dart';
 import 'mental_wellness_questionnaire.dart';
 
@@ -9,49 +11,52 @@ class WorkplaceHazards extends StatefulWidget {
 }
 
 class _WorkplaceHazardsState extends State<WorkplaceHazards> {
+  int physicalScore = 0;
+  int biologicalScore = 0;
+  int chemicalScore = 0;
+  int totalHazardScore = 0;
+
   static List<Hazard> _hazards = [
-    Hazard(id: 1, name: "Body stressing"),
-    Hazard(id: 2, name: "Confined spaces"),
-    Hazard(id: 3, name: "Electricity"),
-    Hazard(id: 4, name: "Heat"),
-    Hazard(id: 5, name: "Cold"),
-    Hazard(id: 6, name: "Noise"),
-    Hazard(id: 7, name: "Vibration"),
-    Hazard(id: 8, name: "Temperature extremes"),
-    Hazard(id: 9, name: "Radiation"),
-    Hazard(id: 10, name: "Heights"),
-    Hazard(id: 11, name: "Viruses"),
-    Hazard(id: 12, name: "Toxins"),
-    Hazard(id: 13, name: "Spores"),
-    Hazard(id: 14, name: "Fungi"),
-    Hazard(id: 15, name: "Pathogenic micro-organisms"),
-    Hazard(id: 16, name: "Bio-active substances"),
-    Hazard(id: 17, name: "Bacteria"),
-    Hazard(id: 18, name: "Acids"),
-    Hazard(id: 19, name: "Caustic substances"),
-    Hazard(id: 20, name: "Cleaning products"),
-    Hazard(id: 21, name: "Glues"),
-    Hazard(id: 22, name: "Pesticides"),
-    Hazard(id: 23, name: "Petroleum products"),
-    Hazard(id: 24, name: "Mercury"),
-    Hazard(id: 25, name: "Explosive"),
-    Hazard(id: 26, name: "Flammable"),
-    Hazard(id: 27, name: "Corrosive"),
+    Hazard(id: 1, riskValue: 1, name: "Body stressing"),
+    Hazard(id: 2, riskValue: 1, name: "Confined spaces"),
+    Hazard(id: 3, riskValue: 1, name: "Electricity"),
+    Hazard(id: 4, riskValue: 1, name: "Heat"),
+    Hazard(id: 5, riskValue: 1, name: "Cold"),
+    Hazard(id: 6, riskValue: 1, name: "Noise"),
+    Hazard(id: 7, riskValue: 1, name: "Vibration"),
+    Hazard(id: 8, riskValue: 1, name: "Temperature extremes"),
+    Hazard(id: 9, riskValue: 1, name: "Radiation"),
+    Hazard(id: 10, riskValue: 1, name: "Heights"),
+    Hazard(id: 11, riskValue: 1, name: "Viruses"),
+    Hazard(id: 12, riskValue: 1, name: "Toxins"),
+    Hazard(id: 13, riskValue: 1, name: "Spores"),
+    Hazard(id: 14, riskValue: 1, name: "Fungi"),
+    Hazard(id: 15, riskValue: 1, name: "Pathogenic micro-organisms"),
+    Hazard(id: 16, riskValue: 1, name: "Bio-active substances"),
+    Hazard(id: 17, riskValue: 1, name: "Bacteria"),
+    Hazard(id: 18, riskValue: 1, name: "Acids"),
+    Hazard(id: 19, riskValue: 1, name: "Caustic substances"),
+    Hazard(id: 20, riskValue: 1, name: "Cleaning products"),
+    Hazard(id: 21, riskValue: 1, name: "Glues"),
+    Hazard(id: 22, riskValue: 1, name: "Pesticides"),
+    Hazard(id: 23, riskValue: 1, name: "Petroleum products"),
+    Hazard(id: 24, riskValue: 1, name: "Mercury"),
+    Hazard(id: 25, riskValue: 1, name: "Explosive"),
+    Hazard(id: 26, riskValue: 1, name: "Flammable"),
+    Hazard(id: 27, riskValue: 1, name: "Corrosive"),
   ];
 
   final _items = _hazards.map((hazard) => MultiSelectItem<Hazard>(hazard, hazard.name)).toList();
 
-  List<Hazard> _selectedHazards = [];
-  List<Hazard> _selectedHazards2 = [];
-  List<Hazard> _selectedHazards3 = [];
-  List<Hazard> _selectedHazards4 = [];
-  List<Hazard> _selectedHazards5 = [];
+  // List<Hazard> _selectedPhysicalHazards = [];
+  // List<Hazard> _selectedBiologicalHazards = [];
+  // List<Hazard> _selectedChemicalHazards = [];
 
   final _multiSelectKey = GlobalKey<FormFieldState>();
 
   @override
   void initState() {
-    _selectedHazards5 = _hazards;
+    // _selectedHazards5 = _hazards;
     super.initState();
   }
 
@@ -75,19 +80,19 @@ class _WorkplaceHazardsState extends State<WorkplaceHazards> {
                           child: Text(
                             'Select all that Apply',
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            style: kHeaderTextStyle,
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.all(18.0),
+                          padding: const EdgeInsets.all(20.0),
                           child: HazardDropdown('Physical Hazards'),
                         ),
                         Container(
-                          padding: const EdgeInsets.all(18.0),
+                          padding: const EdgeInsets.all(20.0),
                           child: HazardDropdown('Biological Hazards'),
                         ),
                         Container(
-                          padding: const EdgeInsets.all(18.0),
+                          padding: const EdgeInsets.all(20.0),
                           child: HazardDropdown('Chemical Hazards'),
                         ),
                       ],
@@ -97,29 +102,10 @@ class _WorkplaceHazardsState extends State<WorkplaceHazards> {
               ],
             ),
           ),
-          Container(
-            padding: EdgeInsets.only(bottom: 50),
-            child: ElevatedButton(
-              child: Text(
-                "Next",
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return MentalWellnessQuestionnaire();
-                }));
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.blue[800],
-                onPrimary: Colors.white,
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-                padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
-              ),
-            ),
-          )
+          NextButton(
+            buttonText: 'Next',
+            nextWidget: MentalWellnessQuestionnaire(totalHazardScore: totalHazardScore),
+          ),
         ],
       ),
     );
@@ -130,41 +116,65 @@ class _WorkplaceHazardsState extends State<WorkplaceHazards> {
     return MultiSelectDialogField(
       items: _items,
       title: Text("$hazardType"),
-      selectedColor: Colors.green,
+      selectedColor: Colors.black,
       selectedItemsTextStyle: TextStyle(fontSize: 20),
       decoration: BoxDecoration(
-        color: Color(0xFF2f7edb).withOpacity(0.7),
-        borderRadius: BorderRadius.all(Radius.circular(14)),
+        // color: Color(0xFF2f7edb).withOpacity(0.7),
+        color: kAppLight,
+        borderRadius: BorderRadius.all(Radius.circular(10)),
         // border: Border.all(
-        //   color: Color(0xFF2f7edb),
-        //   width: 2,
+        //   // color: Color(0xFF2f7edb),
+        //   width: 1,
         // ),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.6),
-            spreadRadius: 3,
-            blurRadius: 6,
-            offset: Offset(0, 5), // changes position of shadow
+            spreadRadius: 4,
+            blurRadius: 4,
+            offset: Offset(0, 4), // changes position of shadow
           ),
         ],
       ),
       buttonText: Text(
         "$hazardType",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 24,
-        ),
+        style: kSubHeaderTextStyle,
       ),
       onConfirm: (results) {
-        _selectedHazards = results;
+        if (hazardType == 'Physical Hazards') {
+          physicalScore = 0;
+
+          for (var i = 0; i < results.length; i++) {
+            physicalScore += results[i].riskValue;
+          }
+        } else if (hazardType == 'Biological Hazards') {
+          biologicalScore = 0;
+
+          for (var i = 0; i < results.length; i++) {
+            biologicalScore += results[i].riskValue;
+          }
+        } else if (hazardType == 'Chemical Hazards') {
+          chemicalScore = 0;
+
+          for (var i = 0; i < results.length; i++) {
+            chemicalScore += results[i].riskValue;
+          }
+        }
+
+        totalHazardScore = physicalScore + biologicalScore + chemicalScore;
+
+        print(physicalScore);
+        print(biologicalScore);
+        print(chemicalScore);
+        print(totalHazardScore);
       },
     );
   }
 }
 
 class Hazard {
-  Hazard({this.id, this.name});
+  Hazard({this.id, this.riskValue, this.name});
 
   final int id;
+  final int riskValue;
   final String name;
 }
