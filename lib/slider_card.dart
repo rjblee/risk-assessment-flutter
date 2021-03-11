@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 class SliderCard extends StatefulWidget {
-  SliderCard({this.colour, @required this.question, @required this.sliderValue, this.onPress});
+  SliderCard({this.colour, @required this.question, this.onPress, this.onChange});
 
   final Color colour;
   final Function onPress;
   final String question;
-  int sliderValue;
+  final Function onChange;
 
   @override
   _SliderCardState createState() => _SliderCardState();
 }
 
 class _SliderCardState extends State<SliderCard> {
+  int sliderValue = 5;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -25,7 +27,7 @@ class _SliderCardState extends State<SliderCard> {
               padding: const EdgeInsets.all(20.0),
               child: Text(
                 widget.question,
-                style: kHeaderTextStyle,
+                style: kSubHeaderTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -37,15 +39,16 @@ class _SliderCardState extends State<SliderCard> {
             //   style: kSliderNumberStyle,
             // ),
             Slider(
-              value: widget.sliderValue.toDouble(),
+              value: sliderValue.toDouble(),
               min: 0,
               max: 10,
-              activeColor: kSISColour,
+              activeColor: kAppBlue,
               // inactiveColor: kSISColour.withOpacity(0.2),
               inactiveColor: Color(0XFF8D8E98),
               onChanged: (double newValue) {
+                widget.onChange(newValue);
                 setState(() {
-                  widget.sliderValue = newValue.round();
+                  sliderValue = newValue.round();
                 });
               },
             ),
@@ -54,8 +57,15 @@ class _SliderCardState extends State<SliderCard> {
         margin: EdgeInsets.all(12),
         padding: const EdgeInsets.all(15.0),
         decoration: BoxDecoration(
-          // color: widget.colour,
-          color: Color(0xFF2f7edb).withOpacity(0.5),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.6),
+              spreadRadius: 5,
+              blurRadius: 5,
+              offset: Offset(0, 5), // changes position of shadow
+            ),
+          ],
+          color: kAppLight,
           borderRadius: BorderRadius.circular(10),
         ),
       ),
