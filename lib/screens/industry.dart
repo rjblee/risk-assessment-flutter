@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:risk_assessment_flutter/appbar.dart';
-import 'environment.dart';
+import 'package:risk_assessment_flutter/constants.dart';
+import '../industry_box.dart';
 
 class Industry extends StatelessWidget {
   @override
@@ -17,16 +18,25 @@ class Industry extends StatelessWidget {
                 child: Text(
                   'Select your Industry',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: kHeaderTextStyle,
                 ),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  IndustryBox('Constructions'),
-                  IndustryBox('Services and Hospitality'),
-                  IndustryBox('Other'),
+                  IndustryBox(
+                    industryName: 'Constructions',
+                    iconImage: 'Construction placeholder icon.png',
+                  ),
+                  IndustryBox(
+                    industryName: 'Services and Hospitality',
+                    iconImage: 'Service Hospitality placeholder icon.png',
+                  ),
+                  IndustryBox(
+                    industryName: 'Other',
+                    iconImage: 'Misc placeholder icon.png',
+                  ),
                 ],
               ),
             ],
