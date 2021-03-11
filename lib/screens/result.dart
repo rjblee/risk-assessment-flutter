@@ -8,6 +8,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'support.dart';
 
 class Result extends StatefulWidget {
+  Result({this.totalHazardScore, this.totalMentalScore, this.totalCombinedScore});
+
+  final int totalHazardScore;
+  final int totalMentalScore;
+  final int totalCombinedScore;
+
   @override
   _ResultState createState() => _ResultState();
 }
@@ -29,56 +35,35 @@ class _ResultState extends State<Result> {
   }
 }
 
-class IndustryBox extends StatelessWidget {
-  IndustryBox(this.industryName);
-
-  final String industryName;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-      child: RaisedButton(
-        padding: EdgeInsets.symmetric(vertical: 30),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        // color: Color(0XFFB5121B),
-        color: Color(0XFF3F51B5),
-        textColor: Color(0xFFFFFFFF),
-        // splashColor: Colors.grey,
-        elevation: 10,
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return Environment();
-          }));
-        },
-        child: Text(
-          industryName,
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
-    );
-  }
-}
-
+// Loading page with the spinner
 class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar(),
       body: Container(
-        child: Center(
-          child: SpinKitDoubleBounce(
-            color: Color(0XFF3F51B5),
-            size: 100,
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SpinKitDoubleBounce(
+              color: kAppBlue,
+              size: 120,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Calculating your Risk Level . . .',
+              style: kSubHeaderTextStyle,
+            )
+          ],
         ),
       ),
     );
   }
 }
 
+// Result page with risk level
 class ResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -99,17 +84,17 @@ class ResultScreen extends StatelessWidget {
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Colors.yellow[400],
+              color: kResultMedium,
             ),
             child: Column(
               children: [
                 Text(
                   'MEDIUM',
-                  style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold, fontFamily: 'YanoneKaffeesatz'),
                 ),
                 Text(
                   'According to your results, you are in a MEDIUM risk environment with a LOW risk mindset.',
-                  style: TextStyle(fontSize: 20),
+                  style: kBodyTextStyle,
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -118,7 +103,7 @@ class ResultScreen extends StatelessWidget {
           SizedBox(height: 20),
           Text(
             'Learn to Lower your Risk',
-            style: kHeaderTextStyle,
+            style: kSubHeaderTextStyle,
             textAlign: TextAlign.center,
           ),
           Container(
@@ -132,13 +117,13 @@ class ResultScreen extends StatelessWidget {
               children: [
                 Text(
                   'Click Here for our Risk Management Course',
-                  style: kHeaderTextStyle,
+                  style: kSubHeaderTextStyle,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 20),
                 Text(
                   'Your score was most influenced by hazards in your environment. Pay close attention to the Module 2 of our course on Identifying and Controlling Hazards.',
-                  style: TextStyle(fontSize: 20),
+                  style: kBodyTextStyle,
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -155,13 +140,13 @@ class ResultScreen extends StatelessWidget {
               children: [
                 Text(
                   'You have the RIGHT and RESPONSIBILITY to refuse unsafe work',
-                  style: kHeaderTextStyle,
+                  style: kSubHeaderTextStyle,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 20),
                 Text(
                   'Click here for the rules on workers\' rights in your province or territory.',
-                  style: TextStyle(fontSize: 20),
+                  style: kBodyTextStyle,
                   textAlign: TextAlign.center,
                 ),
               ],
