@@ -76,7 +76,7 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                     child: ElevatedButton(
                       child: Text(
                         "Finish",
-                        style: TextStyle(fontSize: 20),
+                        style: kSubHeaderTextStyle,
                       ),
                       onPressed: () {
                         print(sliderValue1);
@@ -96,11 +96,11 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                         }));
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.blue[800],
+                        primary: kAppBlue,
                         onPrimary: Colors.white,
                         elevation: 10,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
                       ),
