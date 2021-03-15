@@ -24,10 +24,12 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  url_launcher: ^5.7.10
+#  url_launcher: ^5.7.10
   webview_flutter: ^2.0.1
   multi_select_flutter: ^3.1.8
   flutter_spinkit: ^4.1.2
+  firebase_core: ^1.0.1
+  cloud_firestore: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -74,15 +76,25 @@ flutter:
         - asset: fonts/YanoneKaffeesatz-Regular.ttf
 
 #     Body font
-    - family: TitilliumWebLight
+    - family: Quicksand
       fonts:
-        - asset: fonts/TitilliumWeb-Light.ttf
+        - asset: fonts/Quicksand-Regular.ttf
 
 #     Button font
-    - family: TitilliumWebRegular
+    - family: Raleway
       fonts:
-        - asset: fonts/TitilliumWeb-Regular.ttf
+        - asset: fonts/Raleway-Medium.ttf
 
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+    - family: ComicNeue
+      fonts:
+        - asset: fonts/ComicNeue-Regular.ttf
+
+##     Body font
+#    - family: TitilliumWebLight
+#      fonts:
+#        - asset: fonts/TitilliumWeb-Light.ttf
+#
+##     Button font
+#    - family: TitilliumWebRegular
+#      fonts:
+#        - asset: fonts/TitilliumWeb-Regular.ttf
