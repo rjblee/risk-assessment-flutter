@@ -15,7 +15,7 @@ class NextButton extends StatelessWidget {
       child: ElevatedButton(
         child: Text(
           buttonText,
-          style: TextStyle(fontSize: 20, fontFamily: 'YanoneKaffeesatz'),
+          style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
         ),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
