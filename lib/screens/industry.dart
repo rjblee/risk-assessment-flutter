@@ -2,8 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:risk_assessment_flutter/appbar.dart';
 import 'package:risk_assessment_flutter/constants.dart';
 import '../industry_box.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Industry extends StatelessWidget {
+final _firestore = FirebaseFirestore.instance;
+
+class Industry extends StatefulWidget {
+  // Access a Cloud Firestore instance from your Activity
+  // FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+  @override
+  _IndustryState createState() => _IndustryState();
+}
+
+class _IndustryState extends State<Industry> {
+  void industriesStream() async {
+    await for (var snapshot in _firestore.collection('welding').snapshots()) {
+      for (var industry in snapshot.docs) {
+        print(industry.data());
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +45,14 @@ class Industry extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  ElevatedButton(
+                    child: Text('Test'),
+                    onPressed: () {
+                      industriesStream();
+                    },
+                  ),
                   IndustryBox(
-                    industryName: 'Constructions',
+                    industryName: 'Welding',
                     iconImage: 'Construction placeholder icon.png',
                   ),
                   IndustryBox(
