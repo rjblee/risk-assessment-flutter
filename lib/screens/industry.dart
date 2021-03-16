@@ -17,9 +17,10 @@ class Industry extends StatefulWidget {
 
 class _IndustryState extends State<Industry> {
   void industriesStream() async {
-    await for (var snapshot in _firestore.collection('welding').snapshots()) {
+    await for (var snapshot in _firestore.collection("industry").snapshots()) {
       for (var industry in snapshot.docs) {
-        print(industry.data());
+        print('---------------------------');
+        print(industry.data()['name']);
       }
     }
   }
@@ -41,6 +42,29 @@ class _IndustryState extends State<Industry> {
                   style: kHeaderTextStyle,
                 ),
               ),
+              StreamBuilder<QuerySnapshot>(
+                  stream: _firestore.collection('industry').snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final industries = snapshot.data.docs;
+
+                      // print(industries);
+                      final List<Widget> boxArray = [];
+
+                      for (var ind in industries) {
+                        print(ind['name']);
+                        boxArray.add(
+                            IndustryBox(industryName: ind['name'], iconImage: 'Construction placeholder icon.png'));
+                      }
+
+                      return Column(
+                        children: boxArray,
+                      );
+                    } else {
+                      return Text('hello');
+                    }
+                  })
+              /*
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -49,6 +73,18 @@ class _IndustryState extends State<Industry> {
                     child: Text('Test'),
                     onPressed: () {
                       industriesStream();
+                    },
+                  ),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore.collection('industry').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final industries = snapshot.data.docs;
+                        List<Text> industryWidgets = [];
+                        for (var industry in industries) {
+                          final industryName = industry.data()['name'];
+                        }
+                      }
                     },
                   ),
                   IndustryBox(
@@ -65,6 +101,7 @@ class _IndustryState extends State<Industry> {
                   ),
                 ],
               ),
+              */
             ],
           ),
         ),
