@@ -73,7 +73,7 @@ class _SignInState extends State<SignIn> {
                   child: ElevatedButton(
                     child: Text(
                       'Log In',
-                      style: TextStyle(fontSize: 20, fontFamily: 'YanoneKaffeesatz'),
+                      style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
                     ),
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
