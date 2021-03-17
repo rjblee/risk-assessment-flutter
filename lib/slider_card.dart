@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 class SliderCard extends StatefulWidget {
-  SliderCard({this.colour, @required this.question, this.onPress, this.onChange});
+  SliderCard({@required this.question, this.onPress, this.onChange});
 
-  final Color colour;
   final Function onPress;
   final String question;
   final Function onChange;
