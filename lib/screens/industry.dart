@@ -2,29 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:risk_assessment_flutter/appbar.dart';
 import 'package:risk_assessment_flutter/constants.dart';
 import '../industry_box.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// Access a Cloud Firestore instance from your Activity
 final _firestore = FirebaseFirestore.instance;
 
 class Industry extends StatefulWidget {
-  // Access a Cloud Firestore instance from your Activity
-  // FirebaseFirestore db = FirebaseFirestore.getInstance();
-
   @override
   _IndustryState createState() => _IndustryState();
 }
 
 class _IndustryState extends State<Industry> {
-  void industriesStream() async {
-    await for (var snapshot in _firestore.collection("industry").snapshots()) {
-      for (var industry in snapshot.docs) {
-        print('---------------------------');
-        print(industry.data()['name']);
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,27 +31,28 @@ class _IndustryState extends State<Industry> {
                 ),
               ),
               StreamBuilder<QuerySnapshot>(
-                  stream: _firestore.collection('industry').snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final industries = snapshot.data.docs;
+                stream: _firestore.collection('industry').snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final industries = snapshot.data.docs;
+                    final List<Widget> industryList = [];
 
-                      // print(industries);
-                      final List<Widget> boxArray = [];
-
-                      for (var ind in industries) {
-                        print(ind['name']);
-                        boxArray.add(
-                            IndustryBox(industryName: ind['name'], iconImage: 'Construction placeholder icon.png'));
-                      }
-
-                      return Column(
-                        children: boxArray,
-                      );
-                    } else {
-                      return Text('hello');
+                    for (var industry in industries) {
+                      // print(industry['industry_name']);
+                      industryList.add(IndustryBox(
+                          industryName: industry['industry_name'],
+                          industryID: industry.id,
+                          iconImage: industry['icon']));
                     }
-                  })
+
+                    return Column(
+                      children: industryList,
+                    );
+                  } else {
+                    return Text('Snapshot Error');
+                  }
+                },
+              )
               /*
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
