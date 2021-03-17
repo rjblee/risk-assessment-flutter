@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:risk_assessment_flutter/appbar.dart';
 import 'package:risk_assessment_flutter/constants.dart';
-import 'environment.dart';
 import 'dart:async';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'support.dart';
+import '../next_button.dart';
 
 class Result extends StatefulWidget {
   Result({this.totalHazardScore, this.totalMentalScore, this.totalCombinedScore});
@@ -81,9 +80,17 @@ class ResultScreen extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.6),
+                  spreadRadius: 5,
+                  blurRadius: 5,
+                  offset: Offset(0, 5), // changes position of shadow
+                ),
+              ],
+              borderRadius: BorderRadius.circular(10),
               color: kResultMedium,
             ),
             child: Column(
@@ -92,6 +99,7 @@ class ResultScreen extends StatelessWidget {
                   'MEDIUM',
                   style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold, fontFamily: 'YanoneKaffeesatz'),
                 ),
+                SizedBox(height: 20),
                 Text(
                   'According to your results, you are in a MEDIUM risk environment with a LOW risk mindset.',
                   style: kBodyTextStyle,
@@ -110,13 +118,21 @@ class ResultScreen extends StatelessWidget {
             margin: EdgeInsets.all(10),
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Color(0xFF2f7edb).withOpacity(0.4),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.6),
+                  spreadRadius: 5,
+                  blurRadius: 5,
+                  offset: Offset(0, 5), // changes position of shadow
+                ),
+              ],
+              borderRadius: BorderRadius.circular(10),
+              color: kAppLight,
             ),
             child: Column(
               children: [
                 Text(
-                  'Click Here for our Risk Management Course',
+                  'Click Here for our \nRisk Management Course',
                   style: kSubHeaderTextStyle,
                   textAlign: TextAlign.center,
                 ),
@@ -133,13 +149,21 @@ class ResultScreen extends StatelessWidget {
             margin: EdgeInsets.all(10),
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Color(0xFF2f7edb).withOpacity(0.4),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.6),
+                  spreadRadius: 5,
+                  blurRadius: 5,
+                  offset: Offset(0, 5), // changes position of shadow
+                ),
+              ],
+              borderRadius: BorderRadius.circular(10),
+              color: kAppLight,
             ),
             child: Column(
               children: [
                 Text(
-                  'You have the RIGHT and RESPONSIBILITY to refuse unsafe work',
+                  'You have the \nRIGHT and RESPONSIBILITY \nto refuse unsafe work',
                   style: kSubHeaderTextStyle,
                   textAlign: TextAlign.center,
                 ),
@@ -154,26 +178,27 @@ class ResultScreen extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.all(50),
-            child: ElevatedButton(
-              child: Text(
-                "Finish",
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Support();
-                }));
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.blue[800],
-                onPrimary: Colors.white,
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-                padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
-              ),
-            ),
+            child: NextButton(buttonText: 'Next'),
+            // child: ElevatedButton(
+            //   child: Text(
+            //     "Finish",
+            //     style: TextStyle(fontSize: 20),
+            //   ),
+            //   onPressed: () {
+            //     Navigator.push(context, MaterialPageRoute(builder: (context) {
+            //       return Support();
+            //     }));
+            //   },
+            //   style: ElevatedButton.styleFrom(
+            //     primary: Colors.blue[800],
+            //     onPrimary: Colors.white,
+            //     elevation: 10,
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(25.0),
+            //     ),
+            //     padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
+            //   ),
+            // ),
           ),
         ],
       ),
