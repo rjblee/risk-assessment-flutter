@@ -39,9 +39,12 @@ class _IndustryState extends State<Industry> {
 
                     for (var industry in industries) {
                       // print(industry['industry_name']);
+                      // print(industry);
+                      // print(industry.reference.collection('environment').snapshots());
                       industryList.add(IndustryBox(
                           industryName: industry['industry_name'],
                           industryID: industry.id,
+                          environment: industry.reference.collection('environment').snapshots(),
                           iconImage: industry['icon']));
                     }
 
