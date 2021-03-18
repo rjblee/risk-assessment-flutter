@@ -18,6 +18,8 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
   int sliderValue1 = 5;
   int sliderValue2 = 5;
   int sliderValue3 = 5;
+  int sliderValue4 = 5;
+  int sliderValue5 = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -47,28 +49,39 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
               child: ListView(
                 children: [
                   SliderCard(
-                    colour: Color(0xFF2f7edb).withOpacity(0.5),
-                    question:
-                        'I got enough sleep last night and feel well rested enough to do this job to the best of my abilities',
+                    question: 'I feel well-rested and able to focus on the task at hand',
                     //sliderValue: sliderValue1,
                     onChange: (newValue) {
                       sliderValue1 = newValue.round();
                     },
                   ),
                   SliderCard(
-                    colour: Color(0xFF2f7edb).withOpacity(0.5),
-                    question: 'I have other things I am \nconcerned about',
+                    question: 'I feel supported at work and comfortable asking for help',
                     //sliderValue: sliderValue2,
                     onChange: (newValue) {
                       sliderValue2 = newValue.round();
                     },
                   ),
                   SliderCard(
-                    colour: Color(0xFF2f7edb).withOpacity(0.5),
-                    question: 'My current mood',
+                    question:
+                        'I am in an environment where I can work effectively and at a speed I am comfortable with',
                     //sliderValue: sliderValue3,
                     onChange: (newValue) {
                       sliderValue3 = newValue.round();
+                    },
+                  ),
+                  SliderCard(
+                    question: 'I have feelings of concern, unease or anxiety about things going on in my personal life',
+                    //sliderValue: sliderValue4,
+                    onChange: (newValue) {
+                      sliderValue4 = newValue.round();
+                    },
+                  ),
+                  SliderCard(
+                    question: 'I have feelings of helplessness and despair about the future',
+                    //sliderValue: sliderValue5,
+                    onChange: (newValue) {
+                      sliderValue5 = newValue.round();
                     },
                   ),
                   Container(
