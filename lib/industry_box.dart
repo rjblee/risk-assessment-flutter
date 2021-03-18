@@ -1,13 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:risk_assessment_flutter/constants.dart';
 import 'screens/environment.dart';
 
 class IndustryBox extends StatelessWidget {
-  IndustryBox({this.industryName, this.industryID, this.iconImage});
+  IndustryBox({this.industryName, this.industryID, this.iconImage, this.environment});
 
   final String industryName;
   final String iconImage;
   final String industryID;
+  final Stream<QuerySnapshot> environment;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class IndustryBox extends StatelessWidget {
         ),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return Environment(industryName: industryName, industryID: industryID);
+            return Environment(industryID: industryID, environment: environment);
           }));
         },
         style: ElevatedButton.styleFrom(
