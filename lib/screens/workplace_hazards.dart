@@ -4,8 +4,18 @@ import 'package:risk_assessment_flutter/constants.dart';
 import 'package:risk_assessment_flutter/next_button.dart';
 import '../appbar.dart';
 import 'mental_wellness_questionnaire.dart';
+import 'environment.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+// Access a Cloud Firestore instance from your Activity
+final _firestore = FirebaseFirestore.instance;
 
 class WorkplaceHazards extends StatefulWidget {
+  WorkplaceHazards({this.industryID, this.environmentID});
+
+  final String industryID;
+  final String environmentID;
+
   @override
   _WorkplaceHazardsState createState() => _WorkplaceHazardsState();
 }
@@ -95,6 +105,36 @@ class _WorkplaceHazardsState extends State<WorkplaceHazards> {
                           padding: const EdgeInsets.all(20.0),
                           child: HazardDropdown('Chemical Hazards'),
                         ),
+                        StreamBuilder<QuerySnapshot>(
+                          stream: _firestore
+                              .collection('industry')
+                              .doc(widget.industryID)
+                              .collection('environment')
+                              .doc(widget.environmentID)
+                              .collection('hazard_category')
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              final hazardCategories = snapshot.data.docs;
+                              // print(environments);
+                              final List<Widget> hazardCategoryList = [];
+
+                              for (var hazardCategory in hazardCategories) {
+                                print(hazardCategory['hazard_category_name']);
+                                // environmentList.add(EnvironmentBox(environmentName: environment['environment_name']));
+                              }
+
+                              return Column(
+                                  // children: environmentList,
+                                  );
+                            } else {
+                              // return Text('Snapshot Error');
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          },
+                        )
                       ],
                     ),
                   ],
