@@ -8,10 +8,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 final _firestore = FirebaseFirestore.instance;
 
 class Environment extends StatefulWidget {
-  Environment({this.industryID});
-
+  Environment({this.industryID, this.environment});
 
   final industryID;
+  final environment;
 
   @override
   _EnvironmentState createState() => _EnvironmentState();
@@ -37,7 +37,7 @@ class _EnvironmentState extends State<Environment> {
               ),
 
               StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('industry').doc(widget.industryID).collection('environment').snapshots(),
+                stream: widget.environment,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final environments = snapshot.data.docs;
@@ -45,11 +45,11 @@ class _EnvironmentState extends State<Environment> {
                     final List<Widget> environmentList = [];
 
                     for (var environment in environments) {
-                      print(environment['environment_name']);
+                      // print(environment['environment_name']);
+                      // print(environment.reference.collection('hazard_category').snapshots());
                       environmentList.add(EnvironmentBox(
-                        environmentName: environment['environment_name'],
-                        environmentID: environment.id,
-                      ));
+                          environmentName: environment['environment_name'],
+                          workplaceHazard: environment.reference.collection('hazard_category').snapshots()));
                     }
 
                     return Column(
@@ -86,10 +86,11 @@ class _EnvironmentState extends State<Environment> {
 }
 
 class EnvironmentBox extends StatelessWidget {
-  EnvironmentBox({this.environmentName, this.environmentID});
+  EnvironmentBox({this.environmentName, this.environmentID, this.workplaceHazard});
 
   final String environmentName;
   final String environmentID;
+  final Stream<QuerySnapshot> workplaceHazard;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +110,8 @@ class EnvironmentBox extends StatelessWidget {
         ),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return WorkplaceHazards(industryID: , environmentID: environmentID);
+            // return WorkplaceHazards(environmentID: environmentID, workplaceHazard: workplaceHazard);
+            return WorkplaceHazards(environmentID: environmentID);
           }));
         },
         style: ElevatedButton.styleFrom(
