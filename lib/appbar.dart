@@ -4,8 +4,8 @@ AppBar myAppBar() {
   return AppBar(
     title: Center(
       child: Image.asset(
-        'images/SIS Logo.png',
-        width: 240,
+        'images/Sahara Placeholder Logo Top New.png',
+        width: 280,
       ),
     ),
   );
