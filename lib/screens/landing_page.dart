@@ -16,8 +16,8 @@ class LandingPage extends StatelessWidget {
             child: Column(
               children: [
                 Image.asset(
-                  'images/SAHARA Placeholder Square.png',
-                  // width: 380,
+                  'images/Sahara Placeholder Logo Square New.png',
+                  width: 340,
                 ),
               ],
             ),
