@@ -14,8 +14,8 @@ const kResultMedium = Color(0XFFffbe33);
 const kResultHigh = Color(0XFFe43a48);
 
 // Text Styles
-const kHeaderTextStyle = TextStyle(fontSize: 26, fontWeight: FontWeight.bold, fontFamily: 'RockNRollOne');
-// const kHeaderTextStyle = TextStyle(fontSize: 26, fontWeight: FontWeight.bold, fontFamily: 'Raleway');
+// const kHeaderTextStyle = TextStyle(fontSize: 26, fontWeight: FontWeight.bold, fontFamily: 'RockNRollOne');
+const kHeaderTextStyle = TextStyle(fontSize: 26, fontWeight: FontWeight.bold, fontFamily: 'Raleway');
 // const kSubHeaderTextStyle = TextStyle(fontSize: 22, letterSpacing: 0.6, fontFamily: 'YanoneKaffeesatz');
 const kSubHeaderTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.w600, fontFamily: 'Quicksand');
 const kBodyTextStyle = TextStyle(fontSize: 16, fontFamily: 'Quicksand');
