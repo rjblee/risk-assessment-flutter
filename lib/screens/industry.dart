@@ -40,12 +40,13 @@ class _IndustryState extends State<Industry> {
                     for (var industry in industries) {
                       // print(industry['industry_name']);
                       // print(industry);
-                      // print(industry.reference.collection('environment').snapshots());
-                      industryList.add(IndustryBox(
+                      industryList.add(
+                        IndustryBox(
                           industryName: industry['industry_name'],
-                          industryID: industry.id,
-                          environment: industry.reference.collection('environment').snapshots(),
-                          iconImage: industry['icon']));
+                          iconImage: industry['icon'],
+                          industryReference: industry.reference.collection('environment').snapshots(),
+                        ),
+                      );
                     }
 
                     return Column(
@@ -56,44 +57,6 @@ class _IndustryState extends State<Industry> {
                   }
                 },
               )
-              /*
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ElevatedButton(
-                    child: Text('Test'),
-                    onPressed: () {
-                      industriesStream();
-                    },
-                  ),
-                  StreamBuilder<QuerySnapshot>(
-                    stream: _firestore.collection('industry').snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        final industries = snapshot.data.docs;
-                        List<Text> industryWidgets = [];
-                        for (var industry in industries) {
-                          final industryName = industry.data()['name'];
-                        }
-                      }
-                    },
-                  ),
-                  IndustryBox(
-                    industryName: 'Welding',
-                    iconImage: 'Construction placeholder icon.png',
-                  ),
-                  IndustryBox(
-                    industryName: 'Services and Hospitality',
-                    iconImage: 'Service Hospitality placeholder icon.png',
-                  ),
-                  IndustryBox(
-                    industryName: 'Other',
-                    iconImage: 'Misc placeholder icon.png',
-                  ),
-                ],
-              ),
-              */
             ],
           ),
         ),
