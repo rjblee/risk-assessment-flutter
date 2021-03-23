@@ -44,7 +44,7 @@ class _IndustryState extends State<Industry> {
                         IndustryBox(
                           industryName: industry['industry_name'],
                           iconImage: industry['icon'],
-                          industryReference: industry.reference.collection('environment').snapshots(),
+                          industryReference: industry.reference.collection('environment').orderBy('order').snapshots(),
                         ),
                       );
                     }
