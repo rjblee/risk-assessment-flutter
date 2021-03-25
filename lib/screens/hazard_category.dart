@@ -29,11 +29,7 @@ class _HazardCategoryState extends State<HazardCategory> {
   //int chemicalScore = 0;
   int totalHazardScore = 0;
 
-  static List<Hazard> _hazardList = [
-    // Hazard(id: 1, riskValue: 1, name: "Body stressing"),
-    // Hazard(id: 2, riskValue: 1, name: "Confined spaces"),
-    // Hazard(id: 3, riskValue: 1, name: "Electricity"),
-  ];
+  static List<Hazard> _hazardList = [];
 
   final _multiSelectKey = GlobalKey<FormFieldState>();
 
@@ -114,53 +110,53 @@ class _HazardCategoryState extends State<HazardCategory> {
     );
   }
 
-  // Extracted Hazard Dropdown widget
+  // Hazard Dropdown widget from package
   HazardDropdown({hazardCategory, hazardCategoryReference}) {
     return StreamBuilder<QuerySnapshot>(
-        stream: hazardCategoryReference,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final hazards = snapshot.data.docs;
+      stream: hazardCategoryReference,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final hazards = snapshot.data.docs;
 
-            print(hazards);
-            _hazardList = [];
-            for (var hazard in hazards) {
-              _hazardList.add(
-                Hazard(hazardName: hazard['hazard_name'], riskValue: hazard['risk_value']),
-              );
-            }
+          print(hazards);
+          _hazardList = [];
+          for (var hazard in hazards) {
+            _hazardList.add(
+              Hazard(hazardName: hazard['hazard_name'], riskValue: hazard['risk_value']),
+            );
+          }
 
-            final _items = _hazardList.map((hazard) => MultiSelectItem<Hazard>(hazard, hazard.hazardName)).toList();
+          final _items = _hazardList.map((hazard) => MultiSelectItem<Hazard>(hazard, hazard.hazardName)).toList();
 
-            return MultiSelectDialogField(
-              items: _items,
-              title: Text("$hazardCategory"),
-              selectedColor: Colors.black,
-              selectedItemsTextStyle: TextStyle(fontSize: 20),
-              decoration: BoxDecoration(
-                color: kAppLight,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.6),
-                    spreadRadius: 4,
-                    blurRadius: 4,
-                    offset: Offset(0, 4), // changes position of shadow
-                  ),
-                ],
-              ),
-              buttonText: Text(
-                "$hazardCategory",
-                style: kSubHeaderTextStyle,
-              ),
-              onConfirm: (results) {
-                hazardScore[hazardCategory] = 0;
+          return MultiSelectDialogField(
+            items: _items,
+            title: Text("$hazardCategory"),
+            selectedColor: Colors.black,
+            selectedItemsTextStyle: TextStyle(fontSize: 20),
+            decoration: BoxDecoration(
+              color: kAppLight,
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.6),
+                  spreadRadius: 4,
+                  blurRadius: 4,
+                  offset: Offset(0, 4), // changes position of shadow
+                ),
+              ],
+            ),
+            buttonText: Text(
+              "$hazardCategory",
+              style: kSubHeaderTextStyle,
+            ),
+            onConfirm: (results) {
+              hazardScore[hazardCategory] = 0;
 
-                for (var i = 0; i < results.length; i++) {
-                  hazardScore[hazardCategory] += results[i].riskValue;
-                }
+              for (var i = 0; i < results.length; i++) {
+                hazardScore[hazardCategory] += results[i].riskValue;
+              }
 
-                /*
+              /*
                 if (hazardCategory == 'Physical Hazards') {
 
                  // $hazardCategory
@@ -184,25 +180,29 @@ class _HazardCategoryState extends State<HazardCategory> {
                 }
                 */
 
-                totalHazardScore = 0;
-                hazardScore.forEach((key, value) {
-                  totalHazardScore += value;
-                });
-                //totalHazardScore = physicalScore + biologicalScore + chemicalScore;
+              totalHazardScore = 0;
+              hazardScore.forEach((key, value) {
+                totalHazardScore += value;
+              });
+              //totalHazardScore = physicalScore + biologicalScore + chemicalScore;
 
-                //print(physicalScore);
-                // print(biologicalScore);
-                //print(chemicalScore);
-                print(totalHazardScore);
-              },
-            );
-          } else {
-            return Text('HH');
-          }
-        });
+              //print(physicalScore);
+              //print(biologicalScore);
+              //print(chemicalScore);
+              print(totalHazardScore);
+            },
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
   }
 }
 
+// Hazard constructor
 class Hazard {
   Hazard({this.riskValue, this.hazardName});
 
