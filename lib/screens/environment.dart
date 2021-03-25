@@ -35,17 +35,14 @@ class _EnvironmentState extends State<Environment> {
                   style: kHeaderTextStyle,
                 ),
               ),
-
               StreamBuilder<QuerySnapshot>(
                 stream: widget.industryReference,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final environments = snapshot.data.docs;
-                    // print(environments);
                     final List<Widget> environmentList = [];
 
                     for (var environment in environments) {
-                      // print(environment['environment_name']);
                       // print(environment.reference.collection('hazard_category').snapshots());
                       environmentList.add(
                         EnvironmentBox(
@@ -59,27 +56,12 @@ class _EnvironmentState extends State<Environment> {
                       children: environmentList,
                     );
                   } else {
-                    // return Text('Snapshot Error');
                     return Center(
                       child: CircularProgressIndicator(),
                     );
                   }
                 },
               )
-
-              // -------------------ORIGINAL HARD-CODED STUFF-------------------
-              // Column(
-              //   mainAxisAlignment: MainAxisAlignment.start,
-              //   crossAxisAlignment: CrossAxisAlignment.stretch,
-              //   children: [
-              //     EnvironmentBox('Community Services'),
-              //     EnvironmentBox('Restaurant and Food Preparation'),
-              //     EnvironmentBox('Hotel'),
-              //     EnvironmentBox('Home Services'),
-              //     EnvironmentBox('Transportation'),
-              //   ],
-              // ),
-              // -------------------ORIGINAL STUFF-------------------
             ],
           ),
         ),
