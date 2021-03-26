@@ -5,8 +5,6 @@ import 'package:risk_assessment_flutter/next_button.dart';
 import '../appbar.dart';
 import 'mental_wellness_questionnaire.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../hazard_category_box.dart';
-import '../hazard_dropdown.dart';
 
 // Access a Cloud Firestore instance from your Activity
 final _firestore = FirebaseFirestore.instance;
@@ -24,9 +22,6 @@ class _HazardCategoryState extends State<HazardCategory> {
   Map hazardScore = new Map();
   //{"physical Score": 0,'bil'}
 
-  //int physicalScore = 0;
-  //int biologicalScore = 0;
-  //int chemicalScore = 0;
   int totalHazardScore = 0;
 
   static List<Hazard> _hazardList = [];
@@ -70,7 +65,7 @@ class _HazardCategoryState extends State<HazardCategory> {
                               final List<Widget> hazardCategoryList = [];
 
                               for (var hazardCategory in hazardCategories) {
-                                print(hazardCategory['hazard_category_name']);
+                                // print(hazardCategory['hazard_category_name']);
                                 hazardCategoryList.add(
                                   Container(
                                     padding: EdgeInsets.all(10),
@@ -118,11 +113,13 @@ class _HazardCategoryState extends State<HazardCategory> {
         if (snapshot.hasData) {
           final hazards = snapshot.data.docs;
 
-          print(hazards);
           _hazardList = [];
           for (var hazard in hazards) {
             _hazardList.add(
-              Hazard(hazardName: hazard['hazard_name'], riskValue: hazard['risk_value']),
+              Hazard(
+                hazardName: hazard['hazard_name'],
+                riskValue: hazard['risk_value'],
+              ),
             );
           }
 
@@ -156,39 +153,11 @@ class _HazardCategoryState extends State<HazardCategory> {
                 hazardScore[hazardCategory] += results[i].riskValue;
               }
 
-              /*
-                if (hazardCategory == 'Physical Hazards') {
-
-                 // $hazardCategory
-                  physicalScore = 0;
-
-                  for (var i = 0; i < results.length; i++) {
-                    physicalScore += results[i].riskValue;
-                  }
-                } else if (hazardCategory == 'Biological Hazards') {
-                  biologicalScore = 0;
-
-                  for (var i = 0; i < results.length; i++) {
-                    biologicalScore += results[i].riskValue;
-                  }
-                } else if (hazardCategory == 'Chemical Hazards') {
-                  chemicalScore = 0;
-
-                  for (var i = 0; i < results.length; i++) {
-                    chemicalScore += results[i].riskValue;
-                  }
-                }
-                */
-
               totalHazardScore = 0;
               hazardScore.forEach((key, value) {
                 totalHazardScore += value;
               });
-              //totalHazardScore = physicalScore + biologicalScore + chemicalScore;
 
-              //print(physicalScore);
-              //print(biologicalScore);
-              //print(chemicalScore);
               print(totalHazardScore);
             },
           );
