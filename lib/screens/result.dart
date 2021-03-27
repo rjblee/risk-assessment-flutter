@@ -30,7 +30,7 @@ class _ResultState extends State<Result> {
       });
     });
 
-    return state == 'loadingScreen' ? LoadingScreen() : ResultScreen();
+    return state == 'loadingScreen' ? LoadingScreen() : ResultScreen(totalHazard: widget.totalMentalScore);
   }
 }
 
@@ -64,8 +64,19 @@ class LoadingScreen extends StatelessWidget {
 
 // Result page with risk level
 class ResultScreen extends StatelessWidget {
+  ResultScreen({this.totalHazard});
+
+  final totalHazard;
+
   @override
   Widget build(BuildContext context) {
+    var title = "Undetermined";
+    // if (totalHazard > 0) {
+    //   title = "high";
+    // }
+    //
+    // print(totalHazard);
+
     return Scaffold(
       appBar: myAppBar(),
       body: ListView(
@@ -96,7 +107,7 @@ class ResultScreen extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'MEDIUM',
+                  title,
                   style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold, fontFamily: 'YanoneKaffeesatz'),
                 ),
                 SizedBox(height: 20),
