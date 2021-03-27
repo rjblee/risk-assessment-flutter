@@ -19,11 +19,13 @@ class MentalWellnessQuestionnaire extends StatefulWidget {
 }
 
 class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnaire> {
-  int sliderValue1 = 5;
-  int sliderValue2 = 5;
-  int sliderValue3 = 5;
-  int sliderValue4 = 5;
-  int sliderValue5 = 5;
+  // int sliderValue1 = 5;
+  // int sliderValue2 = 5;
+  // int sliderValue3 = 5;
+  // int sliderValue4 = 5;
+  // int sliderValue5 = 5;
+
+  var sliderValue;
 
   @override
   Widget build(BuildContext context) {
@@ -53,20 +55,32 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
               child: ListView(
                 children: [
                   StreamBuilder<QuerySnapshot>(
-                    stream: _firestore.collection('wellness_question').snapshots(),
+                    stream: _firestore.collection('wellness_question').orderBy('order').snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final wellnessQuestions = snapshot.data.docs;
                         final List<Widget> wellnessQuestionList = [];
+                        sliderValue = new List<int>.filled(wellnessQuestions.length, 5);
 
-                        for (var wellnessQuestion in wellnessQuestions) {
-                          int questionNumber = wellnessQuestion['order'];
+                        for (var i = 0; i < wellnessQuestions.length; i++) {
+                          var wellnessQuestion = wellnessQuestions[i];
+
                           wellnessQuestionList.add(
                             SliderCard(
                               question: wellnessQuestion['question'],
-                              // onChange: (newValue){
-                              //   sliderValue{$questionNumber}
-                              // },
+                              onChange: (newValue) {
+                                sliderValue[i] = (newValue.round());
+
+                                if (wellnessQuestion['question_type'] == "negative") {
+                                  sliderValue[i] = 10 - sliderValue[i];
+                                }
+
+                                print(sliderValue[3]);
+
+                                // print(sliderValue[0]);
+                                // print(sliderValue[1]);
+                                // print(sliderValue[2]);
+                              },
 
                               // industryReference: industry.reference.collection('environment').orderBy('order').snapshots(),
                             ),
@@ -77,7 +91,9 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                           children: wellnessQuestionList,
                         );
                       } else {
-                        return Text('Snapshot Error');
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
                       }
                     },
                   ),
@@ -125,14 +141,16 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                         style: kSubHeaderTextStyle,
                       ),
                       onPressed: () {
-                        print(sliderValue1);
-                        print(sliderValue2);
-                        print(sliderValue3);
-                        print(widget.totalHazardScore);
-                        var totalMentalScore = sliderValue1 + sliderValue2 + sliderValue3;
+                        // print(widget.totalHazardScore);
+                        var totalMentalScore = 0;
+
+                        for (var x = 0; x < sliderValue.length; x++) {
+                          totalMentalScore += sliderValue[x];
+                        }
+                        print("-------------");
                         print(totalMentalScore);
                         var totalCombinedScore = widget.totalHazardScore + totalMentalScore;
-                        print(totalCombinedScore);
+                        // print(totalCombinedScore);
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
                           return Result(
                             totalHazardScore: widget.totalHazardScore,
