@@ -3,8 +3,16 @@ import 'package:risk_assessment_flutter/appbar.dart';
 import 'package:risk_assessment_flutter/constants.dart';
 import 'dart:async';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../get_browser.dart';
+import '../get_risk_level.dart';
 import 'support.dart';
 import '../next_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
+import 'package:webview_flutter/webview_flutter.dart';
+
+// Access a Cloud Firestore instance from your Activity
+final _firestore = FirebaseFirestore.instance;
 
 class Result extends StatefulWidget {
   Result({this.totalHazardScore, this.totalMentalScore, this.totalCombinedScore});
@@ -64,17 +72,25 @@ class LoadingScreen extends StatelessWidget {
 
 // Result page with risk level
 class ResultScreen extends StatelessWidget {
-  ResultScreen({this.totalHazard});
+  ResultScreen({this.totalHazard, this.totalMental, this.totalCombined});
 
   final totalHazard;
+  final totalMental;
+  final totalCombined;
 
   @override
   Widget build(BuildContext context) {
-    var title = "Undetermined";
+    var combinedLevel = "NULL";
+    var hazardLevel = "NULL";
+    var mentalLevel = "NULL";
+    // print(totalHazard);
     // if (totalHazard > 0) {
-    //   title = "high";
+    //   var lowrisk = _firestore.collection('risk_level').doc('8PdeB25takICLEdsaqEz').get();
+    //   print('**********');
+    //   print(lowrisk);
+    //   combinedLevel = "heyigh";
     // }
-    //
+
     // print(totalHazard);
 
     return Scaffold(
@@ -106,10 +122,11 @@ class ResultScreen extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Text(
-                  title,
-                  style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold, fontFamily: 'YanoneKaffeesatz'),
-                ),
+                GetRiskLevel(totalHazard: totalHazard),
+                // Text(
+                //   combinedLevel,
+                //   style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold, fontFamily: 'YanoneKaffeesatz'),
+                // ),
                 SizedBox(height: 20),
                 Text(
                   'According to your results, you are in a MEDIUM risk environment with a LOW risk mindset.',
@@ -119,7 +136,7 @@ class ResultScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 40),
           Text(
             'Learn to Lower your Risk',
             style: kSubHeaderTextStyle,
@@ -153,6 +170,27 @@ class ResultScreen extends StatelessWidget {
                   style: kBodyTextStyle,
                   textAlign: TextAlign.center,
                 ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  child: Text(
+                    "Button",
+                    style: kBodyTextStyle,
+                  ),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return GetBrowser('https://swiftlearning.com/#!/home');
+                    }));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: kAppBlue,
+                    onPrimary: kAppLight,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    padding: EdgeInsets.fromLTRB(40, 5, 40, 5),
+                  ),
+                ),
               ],
             ),
           ),
@@ -183,6 +221,27 @@ class ResultScreen extends StatelessWidget {
                   'Click here for the rules on workers\' rights in your province or territory.',
                   style: kBodyTextStyle,
                   textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  child: Text(
+                    "Button",
+                    style: kBodyTextStyle,
+                  ),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return GetBrowser('https://swiftlearning.com/#!/home');
+                    }));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: kAppBlue,
+                    onPrimary: kAppLight,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    padding: EdgeInsets.fromLTRB(40, 5, 40, 5),
+                  ),
                 ),
               ],
             ),
