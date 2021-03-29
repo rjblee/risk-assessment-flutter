@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class SignUpBrowser extends StatefulWidget {
+class GetBrowser extends StatefulWidget {
+  GetBrowser(this.address);
+
+  final String address;
+
   @override
-  SignUpBrowserState createState() => SignUpBrowserState();
+  GetBrowserState createState() => GetBrowserState();
 }
 
-class SignUpBrowserState extends State<SignUpBrowser> {
+class GetBrowserState extends State<GetBrowser> {
   @override
   void initState() {
     super.initState();
@@ -18,7 +22,7 @@ class SignUpBrowserState extends State<SignUpBrowser> {
   @override
   Widget build(BuildContext context) {
     return WebView(
-      initialUrl: 'https://swiftlearning.com/#!/signIn',
+      initialUrl: widget.address,
       javascriptMode: JavascriptMode.unrestricted,
     );
   }
