@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:risk_assessment_flutter/appbar.dart';
 import 'package:risk_assessment_flutter/constants.dart';
-import '../next_button.dart';
 import 'result.dart';
 import 'package:risk_assessment_flutter/slider_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,12 +18,6 @@ class MentalWellnessQuestionnaire extends StatefulWidget {
 }
 
 class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnaire> {
-  // int sliderValue1 = 5;
-  // int sliderValue2 = 5;
-  // int sliderValue3 = 5;
-  // int sliderValue4 = 5;
-  // int sliderValue5 = 5;
-
   var sliderValue;
 
   @override
@@ -74,15 +67,7 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                                 if (wellnessQuestion['question_type'] == "negative") {
                                   sliderValue[i] = 10 - sliderValue[i];
                                 }
-
-                                print(sliderValue[3]);
-
-                                // print(sliderValue[0]);
-                                // print(sliderValue[1]);
-                                // print(sliderValue[2]);
                               },
-
-                              // industryReference: industry.reference.collection('environment').orderBy('order').snapshots(),
                             ),
                           );
                         }
@@ -111,28 +96,7 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                   //     sliderValue2 = newValue.round();
                   //   },
                   // ),
-                  // SliderCard(
-                  //   question:
-                  //       'I am in an environment where I can work effectively and at a speed I am comfortable with',
-                  //   //sliderValue: sliderValue3,
-                  //   onChange: (newValue) {
-                  //     sliderValue3 = newValue.round();
-                  //   },
-                  // ),
-                  // SliderCard(
-                  //   question: 'I have feelings of concern, unease or anxiety about things going on in my personal life',
-                  //   //sliderValue: sliderValue4,
-                  //   onChange: (newValue) {
-                  //     sliderValue4 = newValue.round();
-                  //   },
-                  // ),
-                  // SliderCard(
-                  //   question: 'I have feelings of helplessness and despair about the future',
-                  //   //sliderValue: sliderValue5,
-                  //   onChange: (newValue) {
-                  //     sliderValue5 = newValue.round();
-                  //   },
-                  // ),
+
                   Container(
                     padding: EdgeInsets.all(50),
                     child: ElevatedButton(
@@ -147,17 +111,19 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                         for (var x = 0; x < sliderValue.length; x++) {
                           totalMentalScore += sliderValue[x];
                         }
-                        print("-------------");
-                        print(totalMentalScore);
+                        // print("-------------");
+                        // print(totalMentalScore);
                         var totalCombinedScore = widget.totalHazardScore + totalMentalScore;
-                        // print(totalCombinedScore);
-                        Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return Result(
-                            totalHazardScore: widget.totalHazardScore,
-                            totalMentalScore: totalMentalScore,
-                            totalCombinedScore: totalCombinedScore,
-                          );
-                        }));
+                        print(totalCombinedScore);
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return Result(
+                              totalHazardScore: widget.totalHazardScore,
+                              totalMentalScore: totalMentalScore,
+                              totalCombinedScore: totalCombinedScore,
+                            );
+                          },
+                        ));
                       },
                       style: ElevatedButton.styleFrom(
                         primary: kAppBlue,
