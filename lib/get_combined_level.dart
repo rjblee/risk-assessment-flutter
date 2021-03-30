@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // Access a Cloud Firestore instance from your Activity
 final _firestore = FirebaseFirestore.instance;
 
+String combinedLevel;
+
 class GetRiskLevel extends StatelessWidget {
   GetRiskLevel({this.totalHazard, this.totalMental, this.totalCombined, this.score, this.documentId});
 
@@ -27,21 +29,21 @@ class GetRiskLevel extends StatelessWidget {
           var data = snapshot.data.data();
 
           if (score >= data['score_high']) {
-            var level = data['level_high'];
+            combinedLevel = data['level_high'];
             return Text(
-              level,
+              combinedLevel,
               style: kCombinedResultTextStyle,
             );
           } else if (score <= data['score_low']) {
-            var level = data['level_low'];
+            combinedLevel = data['level_low'];
             return Text(
-              level,
+              combinedLevel,
               style: kCombinedResultTextStyle,
             );
           } else {
-            var level = data['level_medium'];
+            combinedLevel = data['level_medium'];
             return Text(
-              level,
+              combinedLevel,
               style: kCombinedResultTextStyle,
             );
           }
