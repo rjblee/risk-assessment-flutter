@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:risk_assessment_flutter/constants.dart';
+import 'constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Access a Cloud Firestore instance from your Activity
 final _firestore = FirebaseFirestore.instance;
 
-class GetRiskLevel extends StatelessWidget {
-  GetRiskLevel({this.totalHazard, this.totalMental, this.score, this.documentId});
+String hazardLevel;
 
-  final totalHazard;
-  final totalMental;
+class GetHazardLevel extends StatelessWidget {
+  GetHazardLevel({this.score, this.documentId});
+
   final score;
   final String documentId;
 
@@ -26,22 +26,22 @@ class GetRiskLevel extends StatelessWidget {
           var data = snapshot.data.data();
 
           if (score >= data['score_high']) {
-            var level = data['level_high'];
+            hazardLevel = data['level_high'];
             return Text(
-              level,
-              style: kCombinedResultTextStyle,
+              'According to your results, you are in a $hazardLevel risk environment ',
+              style: kBodyTextStyle,
             );
           } else if (score <= data['score_low']) {
-            var level = data['level_low'];
+            hazardLevel = data['level_low'];
             return Text(
-              level,
-              style: kCombinedResultTextStyle,
+              'According to your results, you are in a $hazardLevel risk environment ',
+              style: kBodyTextStyle,
             );
           } else {
-            var level = data['level_medium'];
+            hazardLevel = data['level_medium'];
             return Text(
-              level,
-              style: kCombinedResultTextStyle,
+              'According to your results, you are in a $hazardLevel risk environment ',
+              style: kBodyTextStyle,
             );
           }
         }
