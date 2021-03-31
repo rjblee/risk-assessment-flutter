@@ -24,23 +24,25 @@ class GetHazardLevel extends StatelessWidget {
 
         if (snapshot.hasData) {
           var data = snapshot.data.data();
-
+          // print(score);
           if (score >= data['score_high']) {
             hazardLevel = data['level_high'];
+
             return Text(
-              'According to your results, you are in a $hazardLevel risk environment ',
+              'You are in a $hazardLevel risk environment ',
               style: kBodyTextStyle,
             );
           } else if (score <= data['score_low']) {
             hazardLevel = data['level_low'];
+            print(score);
             return Text(
-              'According to your results, you are in a $hazardLevel risk environment ',
+              'You are in a $hazardLevel risk environment ',
               style: kBodyTextStyle,
             );
           } else {
             hazardLevel = data['level_medium'];
             return Text(
-              'According to your results, you are in a $hazardLevel risk environment ',
+              'You are in a $hazardLevel risk environment ',
               style: kBodyTextStyle,
             );
           }
