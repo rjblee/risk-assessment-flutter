@@ -3,13 +3,13 @@ import 'package:risk_assessment_flutter/appbar.dart';
 import 'package:risk_assessment_flutter/constants.dart';
 import 'dart:async';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:risk_assessment_flutter/get_hazard_level.dart';
+import 'package:risk_assessment_flutter/get_mental_level.dart';
 import '../get_browser.dart';
-import '../get_risk_level.dart';
+import '../get_combined_level.dart';
 import 'support.dart';
 import '../next_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:io';
-import 'package:webview_flutter/webview_flutter.dart';
 
 // Access a Cloud Firestore instance from your Activity
 final _firestore = FirebaseFirestore.instance;
@@ -38,7 +38,13 @@ class _ResultState extends State<Result> {
       });
     });
 
-    return state == 'loadingScreen' ? LoadingScreen() : ResultScreen(totalHazard: widget.totalMentalScore);
+    return state == 'loadingScreen'
+        ? LoadingScreen()
+        : ResultScreen(
+            totalHazard: widget.totalHazardScore,
+            totalMental: widget.totalMentalScore,
+            totalCombined: widget.totalCombinedScore,
+          );
   }
 }
 
@@ -71,7 +77,7 @@ class LoadingScreen extends StatelessWidget {
 }
 
 // Result page with risk level
-class ResultScreen extends StatelessWidget {
+class ResultScreen extends StatefulWidget {
   ResultScreen({this.totalHazard, this.totalMental, this.totalCombined});
 
   final totalHazard;
@@ -79,20 +85,14 @@ class ResultScreen extends StatelessWidget {
   final totalCombined;
 
   @override
+  _ResultScreenState createState() => _ResultScreenState();
+}
+
+class _ResultScreenState extends State<ResultScreen> {
+  Color backgroundColour = Colors.white;
+
+  @override
   Widget build(BuildContext context) {
-    var combinedLevel = "NULL";
-    var hazardLevel = "NULL";
-    var mentalLevel = "NULL";
-    // print(totalHazard);
-    // if (totalHazard > 0) {
-    //   var lowrisk = _firestore.collection('risk_level').doc('8PdeB25takICLEdsaqEz').get();
-    //   print('**********');
-    //   print(lowrisk);
-    //   combinedLevel = "heyigh";
-    // }
-
-    // print(totalHazard);
-
     return Scaffold(
       appBar: myAppBar(),
       body: ListView(
@@ -118,21 +118,38 @@ class ResultScreen extends StatelessWidget {
                 ),
               ],
               borderRadius: BorderRadius.circular(10),
-              color: kResultMedium,
+              color: backgroundColour,
+              // color: kResultMediumColour,
             ),
             child: Column(
               children: [
-                GetRiskLevel(totalHazard: totalHazard),
+                GetCombinedLevel(
+                  score: widget.totalCombined,
+                  documentId: '7nMZhNcHrhRgLDuLiGxR',
+                  onLevelChange: ({title: String}) {
+                    if (title == 'LOW') {
+                      setState(() => backgroundColour = kResultLowColour);
+                    }
+                  },
+                ),
                 // Text(
                 //   combinedLevel,
                 //   style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold, fontFamily: 'YanoneKaffeesatz'),
                 // ),
                 SizedBox(height: 20),
-                Text(
-                  'According to your results, you are in a MEDIUM risk environment with a LOW risk mindset.',
-                  style: kBodyTextStyle,
-                  textAlign: TextAlign.center,
+                GetHazardLevel(
+                  score: widget.totalHazard,
+                  documentId: '8PdeB25takICLEdsaqEz',
                 ),
+                GetMentalLevel(
+                  score: widget.totalMental,
+                  documentId: 'B7EsnmghApXWecsXICl8',
+                ),
+                // Text(
+                //   'According to your results, you are in a $hazardLevel risk environment with a $hazardLevel risk mindset.',
+                //   style: kBodyTextStyle,
+                //   textAlign: TextAlign.center,
+                // ),
               ],
             ),
           ),
@@ -248,7 +265,10 @@ class ResultScreen extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.all(50),
-            child: NextButton(buttonText: 'Next'),
+            child: NextButton(
+              buttonText: 'Next',
+              nextWidget: Support(),
+            ),
             // child: ElevatedButton(
             //   child: Text(
             //     "Finish",
