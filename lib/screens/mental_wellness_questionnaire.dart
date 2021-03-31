@@ -11,7 +11,7 @@ final _firestore = FirebaseFirestore.instance;
 class MentalWellnessQuestionnaire extends StatefulWidget {
   MentalWellnessQuestionnaire({this.totalHazardScore});
 
-  final int totalHazardScore;
+  final totalHazardScore;
 
   @override
   _MentalWellnessQuestionnaireState createState() => _MentalWellnessQuestionnaireState();
@@ -105,16 +105,19 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                         style: kSubHeaderTextStyle,
                       ),
                       onPressed: () {
-                        // print(widget.totalHazardScore);
+                        print("Hazard Score from mental page:");
+                        print(widget.totalHazardScore);
+
                         var totalMentalScore = 0;
 
                         for (var x = 0; x < sliderValue.length; x++) {
                           totalMentalScore += sliderValue[x];
                         }
-                        // print("-------------");
-                        // print(totalMentalScore);
-                        var totalCombinedScore = widget.totalHazardScore + totalMentalScore;
-                        print(totalCombinedScore);
+                        print("Mental Score from mental page:");
+                        print(totalMentalScore);
+
+                        var totalCombinedScore = widget.totalHazardScore * totalMentalScore;
+
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
                             return Result(
