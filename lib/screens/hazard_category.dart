@@ -19,11 +19,12 @@ class HazardCategory extends StatefulWidget {
 }
 
 class _HazardCategoryState extends State<HazardCategory> {
-  Map hazardScore = new Map();
   //{"physical Score": 0,'bil'}
+  Map hazardScore = new Map();
 
-  int totalHazardScore = 0;
+  static int totalHazardScore = 0;
 
+  int totalScore = 0;
   static List<Hazard> _hazardList = [];
 
   final _multiSelectKey = GlobalKey<FormFieldState>();
@@ -51,7 +52,7 @@ class _HazardCategoryState extends State<HazardCategory> {
                         Container(
                           padding: EdgeInsets.all(20),
                           child: Text(
-                            'Select all Hazards that Apply',
+                            'Select Hazards',
                             textAlign: TextAlign.center,
                             style: kHeaderTextStyle,
                           ),
@@ -70,10 +71,12 @@ class _HazardCategoryState extends State<HazardCategory> {
                                   Container(
                                     padding: EdgeInsets.all(10),
                                     child: HazardDropdown(
-                                      hazardCategory: hazardCategory['hazard_category_name'],
-                                      hazardCategoryReference:
-                                          hazardCategory.reference.collection('hazard').snapshots(),
-                                    ),
+                                        hazardCategory: hazardCategory['hazard_category_name'],
+                                        hazardCategoryReference:
+                                            hazardCategory.reference.collection('hazard').snapshots(),
+                                        callback: (int total) {
+                                          totalHazardScore = total;
+                                        }),
                                   ),
                                 );
                               }
@@ -96,17 +99,38 @@ class _HazardCategoryState extends State<HazardCategory> {
               ],
             ),
           ),
-          NextButton(
-            buttonText: 'Next',
-            nextWidget: MentalWellnessQuestionnaire(totalHazardScore: totalHazardScore),
+          ElevatedButton(
+            child: Text(
+              "NEXT",
+              style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
+            ),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return MentalWellnessQuestionnaire(totalHazardScore: totalHazardScore);
+              }));
+            },
+            style: ElevatedButton.styleFrom(
+              primary: kAppBlue,
+              onPrimary: kAppLight,
+              elevation: 10,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              // padding: EdgeInsets.fromLTRB(80, 15, 80, 15),
+              padding: EdgeInsets.symmetric(vertical: 14),
+            ),
           ),
+          // NextButton(
+          //   buttonText: 'Next',
+          //   nextWidget: MentalWellnessQuestionnaire(totalHazardScore: totalHazardScore),
+          // ),
         ],
       ),
     );
   }
 
   // Hazard Dropdown widget from package
-  HazardDropdown({hazardCategory, hazardCategoryReference}) {
+  HazardDropdown({hazardCategory, hazardCategoryReference, callback}) {
     return StreamBuilder<QuerySnapshot>(
       stream: hazardCategoryReference,
       builder: (context, snapshot) {
@@ -148,17 +172,18 @@ class _HazardCategoryState extends State<HazardCategory> {
             ),
             onConfirm: (results) {
               hazardScore[hazardCategory] = 0;
+              var totalHazardScore1 = 0;
 
               for (var i = 0; i < results.length; i++) {
                 hazardScore[hazardCategory] += results[i].riskValue;
               }
 
-              totalHazardScore = 0;
               hazardScore.forEach((key, value) {
-                totalHazardScore += value;
+                totalHazardScore1 += value;
               });
-
-              print(totalHazardScore);
+              //totalHazardScore = totalHazardScore1;
+              callback(totalHazardScore1);
+              print(totalHazardScore1);
             },
           );
         } else {
