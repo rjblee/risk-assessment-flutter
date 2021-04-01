@@ -15,35 +15,52 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 final _firestore = FirebaseFirestore.instance;
 
 class Result extends StatefulWidget {
-  Result({this.totalHazardScore, this.totalMentalScore, this.totalCombinedScore});
+  Result({this.totalHazardScore, this.totalMentalScore, this.totalCombinedScore, this.boxColour});
 
   final int totalHazardScore;
   final int totalMentalScore;
   final int totalCombinedScore;
+  final boxColour;
 
   @override
   _ResultState createState() => _ResultState();
 }
 
 class _ResultState extends State<Result> {
-  String state = 'loadingScreen';
+  String displayPage = 'loadingScreen';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    // const loadingTime = const Duration(milliseconds: 3000);
+    //
+    // new Timer(loadingTime, () {
+    //   setState(() {
+    //     state = 'resultScreen';
+    //   });
+    //   print("timerrrr");
+    // });
+  }
 
   @override
   Widget build(BuildContext context) {
-    const loadingTime = const Duration(milliseconds: 3000);
+    const loadingTime = const Duration(milliseconds: 1000);
 
     new Timer(loadingTime, () {
       setState(() {
-        state = 'resultScreen';
+        displayPage = 'resultScreen';
       });
+      // print("timerrrr");
     });
-
-    return state == 'loadingScreen'
+    return displayPage == 'loadingScreen'
         ? LoadingScreen()
         : ResultScreen(
             totalHazard: widget.totalHazardScore,
             totalMental: widget.totalMentalScore,
             totalCombined: widget.totalCombinedScore,
+            boxColour: widget.boxColour,
           );
   }
 }
@@ -78,18 +95,19 @@ class LoadingScreen extends StatelessWidget {
 
 // Result page with risk level
 class ResultScreen extends StatefulWidget {
-  ResultScreen({this.totalHazard, this.totalMental, this.totalCombined});
+  ResultScreen({this.totalHazard, this.totalMental, this.totalCombined, this.boxColour});
 
   final totalHazard;
   final totalMental;
   final totalCombined;
+  final boxColour;
 
   @override
   _ResultScreenState createState() => _ResultScreenState();
 }
 
 class _ResultScreenState extends State<ResultScreen> {
-  Color backgroundColour = Colors.white;
+  // Color backgroundColour = Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +136,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 ),
               ],
               borderRadius: BorderRadius.circular(10),
-              color: backgroundColour,
+              color: widget.boxColour,
               // color: kResultMediumColour,
             ),
             child: Column(
@@ -126,11 +144,12 @@ class _ResultScreenState extends State<ResultScreen> {
                 GetCombinedLevel(
                   score: widget.totalCombined,
                   documentId: '7nMZhNcHrhRgLDuLiGxR',
-                  onLevelChange: ({title: String}) {
-                    if (title == 'LOW') {
-                      setState(() => backgroundColour = kResultLowColour);
-                    }
-                  },
+                  // containerColour: backgroundColour,
+                  // onLevelChange: (title) {
+                  //   if (title == 'HIGH') {
+                  //     backgroundColour = kResultLowColour;
+                  //   }
+                  // },
                 ),
                 // Text(
                 //   combinedLevel,
