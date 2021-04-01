@@ -1,79 +1,100 @@
-import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:risk_assessment_flutter/constants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'screens/hazard_category.dart';
+import 'dart:async';
 
+import 'package:risk_assessment_flutter/constants.dart';
+import 'package:risk_assessment_flutter/appbar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:risk_assessment_flutter/test%20result_screen.dart';
+
+import 'screens/result.dart';
+
+// class TestResult extends StatefulWidget {
+//   TestResult({this.totalHazardScore, this.totalMentalScore, this.totalCombinedScore});
 //
-// HazardDropdown({hazardCategory, hazardCategoryReference}) {
-//   return StreamBuilder<QuerySnapshot>(
-//       stream: hazardCategoryReference,
-//       builder: (context, snapshot) {
-//         if (snapshot.hasData) {
-//           final hazards = snapshot.data.docs;
+//   final int totalHazardScore;
+//   final int totalMentalScore;
+//   final int totalCombinedScore;
 //
-//           print(hazards);
-//           _hazardList = [];
-//           for (var hazard in hazards) {
-//             _hazardList.add(
-//               Hazard(hazardName: hazard['hazard_name'], riskValue: hazard['risk_value']),
-//             );
-//           }
-//
-//           final _items = _hazardList.map((hazard) => MultiSelectItem<Hazard>(hazard, hazard.hazardName)).toList();
-//
-//           return MultiSelectDialogField(
-//             items: _items,
-//             title: Text("$hazardCategory"),
-//             selectedColor: Colors.black,
-//             selectedItemsTextStyle: TextStyle(fontSize: 20),
-//             decoration: BoxDecoration(
-//               color: kAppLight,
-//               borderRadius: BorderRadius.all(Radius.circular(10)),
-//               boxShadow: [
-//                 BoxShadow(
-//                   color: Colors.grey.withOpacity(0.6),
-//                   spreadRadius: 4,
-//                   blurRadius: 4,
-//                   offset: Offset(0, 4), // changes position of shadow
-//                 ),
-//               ],
-//             ),
-//             buttonText: Text(
-//               "$hazardCategory",
-//               style: kSubHeaderTextStyle,
-//             ),
-//             onConfirm: (results) {
-//               if (hazardCategory == 'Physical Hazards') {
-//                 physicalScore = 0;
-//
-//                 for (var i = 0; i < results.length; i++) {
-//                   physicalScore += results[i].riskValue;
-//                 }
-//               } else if (hazardCategory == 'Biological Hazards') {
-//                 biologicalScore = 0;
-//
-//                 for (var i = 0; i < results.length; i++) {
-//                   biologicalScore += results[i].riskValue;
-//                 }
-//               } else if (hazardCategory == 'Chemical Hazards') {
-//                 chemicalScore = 0;
-//
-//                 for (var i = 0; i < results.length; i++) {
-//                   chemicalScore += results[i].riskValue;
-//                 }
-//               }
-//
-//               totalHazardScore = physicalScore + biologicalScore + chemicalScore;
-//
-//               print(physicalScore);
-//               print(biologicalScore);
-//               print(chemicalScore);
-//               print(totalHazardScore);
-//             },
-//           );
-//         } else {
-//           return Text('HH');
-//         }
-//       });
+//   @override
+//   _TestResultState createState() => _TestResultState();
 // }
+//
+// class _TestResultState extends State<TestResult> {
+//   String displayPage = 'loadingScreen';
+//
+//   @override
+//   void initState() {
+//     // TODO: implement initState
+//     super.initState();
+//
+//     // const loadingTime = const Duration(milliseconds: 3000);
+//     //
+//     // new Timer(loadingTime, () {
+//     //   setState(() {
+//     //     state = 'resultScreen';
+//     //   });
+//     //   print("timerrrr");
+//     // });
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     const loadingTime = const Duration(milliseconds: 1000);
+//
+//     new Timer(loadingTime, () {
+//       // setState(() {
+//       Navigator.push(context, MaterialPageRoute(builder: (context) {
+//         return ResultScreen();
+//       }));
+//       // });
+//     });
+//     // return displayPage == 'loadingScreen'
+//     //     ? LoadingScreen()
+//     //     : ResultScreen(
+//     //   totalHazard: widget.totalHazardScore,
+//     //   totalMental: widget.totalMentalScore,
+//     //   totalCombined: widget.totalCombinedScore,
+//     // );
+//   }
+// }
+
+class TestLoadingScreen extends StatefulWidget {
+  @override
+  _TestLoadingScreenState createState() => _TestLoadingScreenState();
+}
+
+class _TestLoadingScreenState extends State<TestLoadingScreen> {
+  @override
+  Widget build(BuildContext context) {
+    // new Timer(Duration(seconds: 2), () {
+    //   Navigator.push(context, MaterialPageRoute(builder: (context) => TestResultScreen()));
+    // });
+
+    Future.delayed(Duration(seconds: 5), () {
+      // 5s over, navigate to a new page
+      Navigator.push(context, MaterialPageRoute(builder: (context) => TestResultScreen()));
+    });
+
+    return Scaffold(
+      appBar: myAppBar(),
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SpinKitDoubleBounce(
+              color: kAppBlue,
+              size: 120,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Calculating your Risk Level . . .',
+              style: kSubHeaderTextStyle,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
