@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:risk_assessment_flutter/appbar.dart';
 import 'package:risk_assessment_flutter/constants.dart';
+import 'package:risk_assessment_flutter/test%20loading_screen.dart';
 import 'result.dart';
 import 'package:risk_assessment_flutter/slider_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,9 +10,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 final _firestore = FirebaseFirestore.instance;
 
 class MentalWellnessQuestionnaire extends StatefulWidget {
-  MentalWellnessQuestionnaire({this.totalHazardScore});
+  MentalWellnessQuestionnaire({this.totalHazardScore}) {
+    print('this.totalHazardScore = ' + this.totalHazardScore.toString());
+  }
 
-  final totalHazardScore;
+  final int totalHazardScore;
 
   @override
   _MentalWellnessQuestionnaireState createState() => _MentalWellnessQuestionnaireState();
@@ -22,6 +25,7 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
 
   @override
   Widget build(BuildContext context) {
+    print('widgetpddd = ' + widget.totalHazardScore.toString());
     return Scaffold(
       appBar: myAppBar(),
       body: Container(
@@ -82,21 +86,6 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                       }
                     },
                   ),
-                  // SliderCard(
-                  //   question: 'I feel well-rested and able to focus on the task at hand',
-                  //   //sliderValue: sliderValue1,
-                  //   onChange: (newValue) {
-                  //     sliderValue1 = newValue.round();
-                  //   },
-                  // ),
-                  // SliderCard(
-                  //   question: 'I feel supported at work and comfortable asking for help',
-                  //   //sliderValue: sliderValue2,
-                  //   onChange: (newValue) {
-                  //     sliderValue2 = newValue.round();
-                  //   },
-                  // ),
-
                   Container(
                     padding: EdgeInsets.all(50),
                     child: ElevatedButton(
@@ -117,6 +106,10 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                         print(totalMentalScore);
 
                         var totalCombinedScore = widget.totalHazardScore * totalMentalScore;
+                        var boxColour;
+                        if (totalCombinedScore > 2) {
+                          boxColour = kResultMediumColour;
+                        }
 
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
@@ -124,7 +117,9 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                               totalHazardScore: widget.totalHazardScore,
                               totalMentalScore: totalMentalScore,
                               totalCombinedScore: totalCombinedScore,
+                              boxColour: boxColour,
                             );
+                            // return TestLoadingScreen();
                           },
                         ));
                       },
