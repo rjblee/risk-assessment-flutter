@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:risk_assessment_flutter/appbar.dart';
 import 'package:risk_assessment_flutter/constants.dart';
-import 'package:risk_assessment_flutter/test%20loading_screen.dart';
+import 'package:risk_assessment_flutter/get_combined_level.dart';
 import 'result.dart';
 import 'package:risk_assessment_flutter/slider_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -106,10 +106,18 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                         print(totalMentalScore);
 
                         var totalCombinedScore = widget.totalHazardScore * totalMentalScore;
-                        var boxColour;
-                        if (totalCombinedScore > 2) {
-                          boxColour = kResultMediumColour;
-                        }
+                        // print("Combined Score from mental page:");
+                        // print(totalCombinedScore);
+
+                        // var boxColour;
+                        //
+                        // if (totalCombinedScore >= combinedHigh) {
+                        //   boxColour = kResultHighColour;
+                        // } else if (totalCombinedScore >= 30) {
+                        //   boxColour = kResultMediumColour;
+                        // } else {
+                        //   boxColour = kResultLowColour;
+                        // }
 
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
@@ -117,9 +125,8 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                               totalHazardScore: widget.totalHazardScore,
                               totalMentalScore: totalMentalScore,
                               totalCombinedScore: totalCombinedScore,
-                              boxColour: boxColour,
+                              // boxColour: boxColour,
                             );
-                            // return TestLoadingScreen();
                           },
                         ));
                       },
