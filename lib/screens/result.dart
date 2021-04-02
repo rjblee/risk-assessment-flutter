@@ -46,13 +46,12 @@ class _ResultState extends State<Result> {
 
   @override
   Widget build(BuildContext context) {
-    const loadingTime = const Duration(milliseconds: 1000);
+    const loadingTime = const Duration(milliseconds: 2000);
 
     new Timer(loadingTime, () {
       setState(() {
         displayPage = 'resultScreen';
       });
-      // print("timerrrr");
     });
     return displayPage == 'loadingScreen'
         ? LoadingScreen()
@@ -107,7 +106,7 @@ class ResultScreen extends StatefulWidget {
 }
 
 class _ResultScreenState extends State<ResultScreen> {
-  // Color backgroundColour = Colors.white;
+  Color backgroundColour = Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -136,20 +135,20 @@ class _ResultScreenState extends State<ResultScreen> {
                 ),
               ],
               borderRadius: BorderRadius.circular(10),
-              color: widget.boxColour,
-              // color: kResultMediumColour,
+              // color: widget.boxColour,
+              color: backgroundColour,
             ),
             child: Column(
               children: [
                 GetCombinedLevel(
                   score: widget.totalCombined,
                   documentId: '7nMZhNcHrhRgLDuLiGxR',
-                  // containerColour: backgroundColour,
-                  // onLevelChange: (title) {
-                  //   if (title == 'HIGH') {
-                  //     backgroundColour = kResultLowColour;
-                  //   }
-                  // },
+                  containerColour: backgroundColour,
+                  onLevelChange: (title) {
+                    if (title == 'HIGH') {
+                      backgroundColour = kResultLowColour;
+                    }
+                  },
                 ),
                 // Text(
                 //   combinedLevel,
