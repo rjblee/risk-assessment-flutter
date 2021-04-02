@@ -3,7 +3,7 @@ import 'package:risk_assessment_flutter/appbar.dart';
 import 'package:risk_assessment_flutter/constants.dart';
 import 'package:risk_assessment_flutter/next_button.dart';
 import 'industry.dart';
-import '../signup_browser.dart';
+import '../get_browser.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -63,38 +63,38 @@ class _SignInState extends State<SignIn> {
                 SizedBox(
                   height: 40,
                 ),
-                // NextButton(
-                //   buttonText: 'Log In',
-                //   nextWidget: Industry(),
-                // ),
-                Container(
-                  width: 300,
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: ElevatedButton(
-                    child: Text(
-                      'Log In',
-                      style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
-                    ),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return Industry();
-                      }));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: kAppBlue,
-                      onPrimary: kAppLight,
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      // padding: EdgeInsets.fromLTRB(80, 15, 80, 15),
-                      padding: EdgeInsets.symmetric(vertical: 14),
-                    ),
-                  ),
+                NextButton(
+                  buttonText: 'Log In',
+                  nextWidget: Industry(),
                 ),
+                // Container(
+                //   width: 300,
+                //   padding: EdgeInsets.only(bottom: 20),
+                //   child: ElevatedButton(
+                //     child: Text(
+                //       'Log In',
+                //       style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
+                //     ),
+                //     onPressed: () {
+                //       Navigator.push(context, MaterialPageRoute(builder: (context) {
+                //         return Industry();
+                //       }));
+                //     },
+                //     style: ElevatedButton.styleFrom(
+                //       primary: kAppBlue,
+                //       onPrimary: kAppLight,
+                //       elevation: 10,
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(10.0),
+                //       ),
+                //       // padding: EdgeInsets.fromLTRB(80, 15, 80, 15),
+                //       padding: EdgeInsets.symmetric(vertical: 14),
+                //     ),
+                //   ),
+                // ),
                 NextButton(
                   buttonText: 'Create an Account',
-                  nextWidget: SignUpBrowser(),
+                  nextWidget: GetBrowser('https://swiftlearning.com/#!/signIn'),
                 ),
               ],
             ),
