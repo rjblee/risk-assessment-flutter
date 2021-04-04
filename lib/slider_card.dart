@@ -39,8 +39,8 @@ class _SliderCardState extends State<SliderCard> {
             // ),
             Slider(
               value: sliderValue.toDouble(),
-              min: 0,
-              max: 10,
+              min: 1,
+              max: 9,
               activeColor: kAppBlue,
               // inactiveColor: kSISColour.withOpacity(0.2),
               inactiveColor: Color(0XFF8D8E98),
