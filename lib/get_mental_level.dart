@@ -24,9 +24,10 @@ class GetMentalLevel extends StatelessWidget {
 
         if (snapshot.hasData) {
           var data = snapshot.data.data();
-
+          // print(score);
           if (score >= data['score_high']) {
             mentalLevel = data['level_high'];
+
             return Text(
               'with a $mentalLevel risk mindset.',
               style: kBodyTextStyle,
@@ -39,6 +40,7 @@ class GetMentalLevel extends StatelessWidget {
             );
           } else {
             mentalLevel = data['level_medium'];
+
             return Text(
               'with a $mentalLevel risk mindset.',
               style: kBodyTextStyle,
