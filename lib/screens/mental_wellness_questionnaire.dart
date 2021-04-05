@@ -109,15 +109,15 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                         // print("Combined Score from mental page:");
                         // print(totalCombinedScore);
 
-                        // var boxColour;
-                        //
-                        // if (totalCombinedScore >= combinedHigh) {
-                        //   boxColour = kResultHighColour;
-                        // } else if (totalCombinedScore >= 30) {
-                        //   boxColour = kResultMediumColour;
-                        // } else {
-                        //   boxColour = kResultLowColour;
-                        // }
+                        var boxColour;
+
+                        if (totalCombinedScore >= combinedHigh) {
+                          boxColour = kResultHighColour;
+                        } else if (totalCombinedScore >= 30) {
+                          boxColour = kResultMediumColour;
+                        } else {
+                          boxColour = kResultLowColour;
+                        }
 
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
@@ -125,7 +125,7 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                               totalHazardScore: widget.totalHazardScore,
                               totalMentalScore: totalMentalScore,
                               totalCombinedScore: totalCombinedScore,
-                              // boxColour: boxColour,
+                              boxColour: boxColour,
                             );
                           },
                         ));
