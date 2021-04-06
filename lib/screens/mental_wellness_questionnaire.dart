@@ -9,6 +9,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // Access a Cloud Firestore instance from your Activity
 final _firestore = FirebaseFirestore.instance;
 
+var combinedHigh;
+
 class MentalWellnessQuestionnaire extends StatefulWidget {
   MentalWellnessQuestionnaire({this.totalHazardScore}) {
     print('this.totalHazardScore = ' + this.totalHazardScore.toString());
@@ -25,7 +27,6 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
 
   @override
   Widget build(BuildContext context) {
-    print('widgetpddd = ' + widget.totalHazardScore.toString());
     return Scaffold(
       appBar: myAppBar(),
       body: Container(
@@ -108,10 +109,12 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                         var totalCombinedScore = widget.totalHazardScore * totalMentalScore;
                         // print("Combined Score from mental page:");
                         // print(totalCombinedScore);
+                        GetCombinedLevel();
 
                         var boxColour;
+                        // print('combinedHigh =  $combinedHigh');
 
-                        if (totalCombinedScore >= combinedHigh) {
+                        if (totalCombinedScore >= 50) {
                           boxColour = kResultHighColour;
                         } else if (totalCombinedScore >= 30) {
                           boxColour = kResultMediumColour;
