@@ -7,21 +7,24 @@ import 'screens/result.dart';
 final _firestore = FirebaseFirestore.instance;
 
 String combinedLevel;
-int combinedHigh;
+// static int combinedHigh;
 
 class GetCombinedLevel extends StatefulWidget {
-  GetCombinedLevel({this.score, this.documentId, this.containerColour, this.onLevelChange});
+  GetCombinedLevel({this.score, this.documentId});
 
   final score;
   final String documentId;
-  Color containerColour;
-  final Function(String) onLevelChange;
+
+  // Color containerColour;
+  // final Function(String) onLevelChange;
 
   @override
   _GetCombinedLevelState createState() => _GetCombinedLevelState();
 }
 
 class _GetCombinedLevelState extends State<GetCombinedLevel> {
+  static int combinedHigh;
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(
@@ -37,7 +40,7 @@ class _GetCombinedLevelState extends State<GetCombinedLevel> {
 
           if (widget.score >= data['score_high']) {
             combinedLevel = data['level_high'];
-            widget.onLevelChange(combinedLevel);
+            // widget.onLevelChange(combinedLevel);
             // setState(() {
             //   widget.containerColour = kResultHighColour;
             // });
@@ -48,7 +51,7 @@ class _GetCombinedLevelState extends State<GetCombinedLevel> {
             );
           } else if (widget.score <= data['score_low']) {
             combinedLevel = data['level_low'];
-            widget.onLevelChange(combinedLevel);
+            // widget.onLevelChange(combinedLevel);
 
             return Text(
               combinedLevel,
@@ -56,7 +59,7 @@ class _GetCombinedLevelState extends State<GetCombinedLevel> {
             );
           } else {
             combinedLevel = data['level_medium'];
-            widget.onLevelChange(combinedLevel);
+            // widget.onLevelChange(combinedLevel);
 
             return Text(
               combinedLevel,
