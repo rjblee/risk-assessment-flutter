@@ -35,7 +35,9 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.ralphlee.risk_assessment_flutter"
+//        applicationId "com.ralphlee.risk_assessment_flutter"
+        applicationId "ca.safetyinschools.sahara"
+
         // Required by the Flutter WebView plugin.
         minSdkVersion 21
         targetSdkVersion 30
