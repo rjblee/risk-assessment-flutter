@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         primaryColor: kAppGreen,
         // primaryColor: Colors.grey[200],
         // scaffoldBackgroundColor: Colors.grey[100],
-        scaffoldBackgroundColor: Color(0xFFDCD6DA),
+        // scaffoldBackgroundColor: Color(0xFFDCD6DA),
       ),
       debugShowCheckedModeBanner: false,
       home: LandingPage(),
