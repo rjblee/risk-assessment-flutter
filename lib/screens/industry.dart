@@ -53,7 +53,9 @@ class _IndustryState extends State<Industry> {
                       children: industryList,
                     );
                   } else {
-                    return Text('Snapshot Error');
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
                 },
               )
