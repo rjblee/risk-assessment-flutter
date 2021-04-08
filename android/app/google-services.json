@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1044516084552",
-    "project_id": "sahara-daebd",
-    "storage_bucket": "sahara-daebd.appspot.com"
+    "project_number": "734622902597",
+    "project_id": "sahara-7c543",
+    "storage_bucket": "sahara-7c543.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1044516084552:android:5e38d36d2ce2bdf515b17d",
+        "mobilesdk_app_id": "1:734622902597:android:60feaa00b75c871868f62c",
         "android_client_info": {
-          "package_name": "com.ralphlee.risk_assessment_flutter"
+          "package_name": "ca.safetyinschools.sahara"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1044516084552-itq2o1cvpn4ltp1gavc53o6mgc1aaiku.apps.googleusercontent.com",
+          "client_id": "734622902597-t1g5hnruk93iv9kta745qbud65s4g2bp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCM0Zh0_GRwGAOs3MadpJVOwuR8n766PMk"
+          "current_key": "AIzaSyBkp2FfA5dzqwd0yYb4RRpXZZcj2Pjj-Pc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1044516084552-itq2o1cvpn4ltp1gavc53o6mgc1aaiku.apps.googleusercontent.com",
+              "client_id": "734622902597-t1g5hnruk93iv9kta745qbud65s4g2bp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
