@@ -9,6 +9,35 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // Access a Cloud Firestore instance from your Activity
 final _firestore = FirebaseFirestore.instance;
 
+int combinedHigh;
+
+// class GetThreshold extends StatelessWidget {
+//   GetThreshold(this.documentId);
+//
+//   final String documentId;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder<DocumentSnapshot>(
+//       future: _firestore.collection('risk_level').doc(documentId).get(),
+//       builder: (context, snapshot) {
+//         if (snapshot.hasError) {
+//           return Text("Something went wrong");
+//         }
+//
+//         if (snapshot.hasData) {
+//           var data = snapshot.data.data();
+//           combinedHigh = data['score_high'];
+//
+//           return Text('combined high value = $combinedHigh');
+//         }
+//
+//         return Text("loading");
+//       },
+//     );
+//   }
+// }
+
 class HazardCategory extends StatefulWidget {
   HazardCategory({this.environmentReference});
 
@@ -23,6 +52,9 @@ class _HazardCategoryState extends State<HazardCategory> {
   Map hazardScore = new Map();
 
   static int totalHazardScore = 0;
+  static int combinedHigh;
+  static int combinedLow;
+  String documentId = 'xWgXGdtkGY64hClTe4vG';
 
   int totalScore = 0;
   static List<Hazard> _hazardList = [];
@@ -91,6 +123,26 @@ class _HazardCategoryState extends State<HazardCategory> {
                               );
                             }
                           },
+                        ),
+                        FutureBuilder<DocumentSnapshot>(
+                          future: _firestore.collection('risk_level').doc(documentId).get(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              return Text("Something went wrong");
+                            }
+
+                            if (snapshot.hasData) {
+                              var data = snapshot.data.data();
+                              combinedHigh = data['score_high'];
+                              combinedLow = data['score_low'];
+                            } else {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+
+                            return Text("");
+                          },
                         )
                       ],
                     ),
@@ -99,25 +151,32 @@ class _HazardCategoryState extends State<HazardCategory> {
               ],
             ),
           ),
-          ElevatedButton(
-            child: Text(
-              "NEXT",
-              style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
-            ),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return MentalWellnessQuestionnaire(totalHazardScore: totalHazardScore);
-              }));
-            },
-            style: ElevatedButton.styleFrom(
-              primary: kAppBlue,
-              onPrimary: kAppLight,
-              elevation: 10,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
+          Container(
+            padding: EdgeInsets.all(50),
+            width: 400,
+            child: ElevatedButton(
+              child: Text(
+                "Next",
+                style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
               ),
-              // padding: EdgeInsets.fromLTRB(80, 15, 80, 15),
-              padding: EdgeInsets.symmetric(vertical: 14),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return MentalWellnessQuestionnaire(
+                    totalHazardScore: totalHazardScore,
+                    combinedHigh: combinedHigh,
+                    combinedLow: combinedLow,
+                  );
+                }));
+              },
+              style: ElevatedButton.styleFrom(
+                primary: kAppBlue,
+                onPrimary: kAppLight,
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
+              ),
             ),
           ),
           // NextButton(
