@@ -9,14 +9,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // Access a Cloud Firestore instance from your Activity
 final _firestore = FirebaseFirestore.instance;
 
-var combinedHigh;
+// var combinedHigh;
 
 class MentalWellnessQuestionnaire extends StatefulWidget {
-  MentalWellnessQuestionnaire({this.totalHazardScore}) {
-    print('this.totalHazardScore = ' + this.totalHazardScore.toString());
+  MentalWellnessQuestionnaire({this.totalHazardScore, this.combinedHigh, this.combinedLow}) {
+    print('totalHazardScore = ' + this.totalHazardScore.toString());
+    print('combinedHighhh = ' + this.combinedHigh.toString());
+    print('combinedLow = ' + this.combinedLow.toString());
   }
 
   final int totalHazardScore;
+  final int combinedHigh;
+  final int combinedLow;
 
   @override
   _MentalWellnessQuestionnaireState createState() => _MentalWellnessQuestionnaireState();
@@ -107,16 +111,12 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                         print(totalMentalScore);
 
                         var totalCombinedScore = widget.totalHazardScore * totalMentalScore;
-                        // print("Combined Score from mental page:");
-                        // print(totalCombinedScore);
-                        GetCombinedLevel();
 
                         var boxColour;
-                        // print('combinedHigh =  $combinedHigh');
 
-                        if (totalCombinedScore >= 50) {
+                        if (totalCombinedScore >= widget.combinedHigh) {
                           boxColour = kResultHighColour;
-                        } else if (totalCombinedScore >= 30) {
+                        } else if (totalCombinedScore >= widget.combinedLow) {
                           boxColour = kResultMediumColour;
                         } else {
                           boxColour = kResultLowColour;
