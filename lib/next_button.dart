@@ -24,7 +24,7 @@ class NextButton extends StatelessWidget {
         },
         style: ElevatedButton.styleFrom(
           primary: kAppBlue,
-          onPrimary: kAppLight,
+          // onPrimary: kAppLight,
           elevation: 10,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
