@@ -9,35 +9,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // Access a Cloud Firestore instance from your Activity
 final _firestore = FirebaseFirestore.instance;
 
-int combinedHigh;
-
-// class GetThreshold extends StatelessWidget {
-//   GetThreshold(this.documentId);
-//
-//   final String documentId;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder<DocumentSnapshot>(
-//       future: _firestore.collection('risk_level').doc(documentId).get(),
-//       builder: (context, snapshot) {
-//         if (snapshot.hasError) {
-//           return Text("Something went wrong");
-//         }
-//
-//         if (snapshot.hasData) {
-//           var data = snapshot.data.data();
-//           combinedHigh = data['score_high'];
-//
-//           return Text('combined high value = $combinedHigh');
-//         }
-//
-//         return Text("loading");
-//       },
-//     );
-//   }
-// }
-
 class HazardCategory extends StatefulWidget {
   HazardCategory({this.environmentReference});
 
@@ -98,7 +69,6 @@ class _HazardCategoryState extends State<HazardCategory> {
                               final List<Widget> hazardCategoryList = [];
 
                               for (var hazardCategory in hazardCategories) {
-                                // print(hazardCategory['hazard_category_name']);
                                 hazardCategoryList.add(
                                   Container(
                                     padding: EdgeInsets.all(10),
@@ -117,7 +87,6 @@ class _HazardCategoryState extends State<HazardCategory> {
                                 children: hazardCategoryList,
                               );
                             } else {
-                              // return Text('Snapshot Error');
                               return Center(
                                 child: CircularProgressIndicator(),
                               );
@@ -210,7 +179,10 @@ class _HazardCategoryState extends State<HazardCategory> {
 
           return MultiSelectDialogField(
             items: _items,
-            title: Text("$hazardCategory"),
+            title: Text(
+              "$hazardCategory",
+              textAlign: TextAlign.center,
+            ),
             selectedColor: Colors.black,
             selectedItemsTextStyle: TextStyle(fontSize: 20),
             decoration: BoxDecoration(
