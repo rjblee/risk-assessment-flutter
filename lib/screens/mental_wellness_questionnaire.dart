@@ -9,12 +9,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // Access a Cloud Firestore instance from your Activity
 final _firestore = FirebaseFirestore.instance;
 
-// var combinedHigh;
-
 class MentalWellnessQuestionnaire extends StatefulWidget {
   MentalWellnessQuestionnaire({this.totalHazardScore, this.combinedHigh, this.combinedLow}) {
     print('totalHazardScore = ' + this.totalHazardScore.toString());
-    print('combinedHighhh = ' + this.combinedHigh.toString());
+    print('combinedHigh = ' + this.combinedHigh.toString());
     print('combinedLow = ' + this.combinedLow.toString());
   }
 
