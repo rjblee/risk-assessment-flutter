@@ -142,7 +142,8 @@ class _ResultScreenState extends State<ResultScreen> {
               children: [
                 GetCombinedLevel(
                   score: widget.totalCombined,
-                  documentId: '7nMZhNcHrhRgLDuLiGxR',
+                  // documentId: '7nMZhNcHrhRgLDuLiGxR',
+                  documentId: 'xWgXGdtkGY64hClTe4vG',
                   // containerColour: widget.boxColour,
                   // onLevelChange: (title) {
                   //   if (title == 'HIGH') {
@@ -157,11 +158,13 @@ class _ResultScreenState extends State<ResultScreen> {
                 SizedBox(height: 20),
                 GetHazardLevel(
                   score: widget.totalHazard,
-                  documentId: '8PdeB25takICLEdsaqEz',
+                  // documentId: '8PdeB25takICLEdsaqEz',
+                  documentId: 'syndQC1XUgc7Q9nsbRf3',
                 ),
                 GetMentalLevel(
                   score: widget.totalMental,
-                  documentId: 'B7EsnmghApXWecsXICl8',
+                  // documentId: 'B7EsnmghApXWecsXICl8',
+                  documentId: 'yyoraqFyMrBKZMlT8Nvq',
                 ),
                 // Text(
                 //   'According to your results, you are in a $hazardLevel risk environment with a $hazardLevel risk mindset.',
