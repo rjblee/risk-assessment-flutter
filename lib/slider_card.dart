@@ -64,7 +64,8 @@ class _SliderCardState extends State<SliderCard> {
               offset: Offset(0, 5), // changes position of shadow
             ),
           ],
-          color: kAppLight,
+          // color: kAppLight,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
         ),
       ),
