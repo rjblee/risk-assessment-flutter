@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:risk_assessment_flutter/appbar.dart';
 import 'package:risk_assessment_flutter/constants.dart';
 import 'package:risk_assessment_flutter/next_button.dart';
+import 'package:risk_assessment_flutter/screens/custom_hazard.dart';
 import 'industry.dart';
 import '../get_browser.dart';
 
@@ -47,13 +48,13 @@ class _SignInState extends State<SignIn> {
                     children: [
                       TextFormField(
                         decoration: InputDecoration(
-                          hintText: 'Enter Your email',
+                          hintText: 'Enter your email',
                           labelText: 'Email',
                         ),
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          hintText: 'Enter Your password',
+                          hintText: 'Enter your password',
                           labelText: 'Password',
                         ),
                       ),
