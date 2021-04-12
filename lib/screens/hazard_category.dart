@@ -203,18 +203,17 @@ class _HazardCategoryState extends State<HazardCategory> {
             ),
             onConfirm: (results) {
               hazardScore[hazardCategory] = 0;
-              var totalHazardScore1 = 0;
+              var totalHazardScore = 0;
 
               for (var i = 0; i < results.length; i++) {
                 hazardScore[hazardCategory] += results[i].riskValue;
               }
 
               hazardScore.forEach((key, value) {
-                totalHazardScore1 += value;
+                totalHazardScore += value;
               });
-              //totalHazardScore = totalHazardScore1;
-              callback(totalHazardScore1);
-              print(totalHazardScore1);
+              callback(totalHazardScore);
+              print(totalHazardScore);
             },
           );
         } else {
