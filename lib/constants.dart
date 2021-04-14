@@ -19,7 +19,7 @@ const kHeaderTextStyle = TextStyle(fontSize: 26, fontWeight: FontWeight.bold, fo
 const kSubHeaderTextStyle = TextStyle(fontSize: 22, letterSpacing: 0.6, fontFamily: 'YanoneKaffeesatz');
 // const kSubHeaderTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.w600, fontFamily: 'Quicksand');
 const kBodyTextStyle = TextStyle(fontSize: 16, fontFamily: 'Quicksand');
-const kSliderNumberStyle = TextStyle(fontSize: 40, fontWeight: FontWeight.bold, fontFamily: 'Quicksand');
+const kSliderNumberStyle = TextStyle(fontSize: 34, fontWeight: FontWeight.bold, fontFamily: 'Quicksand');
 const kCombinedResultTextStyle = TextStyle(fontSize: 50, fontWeight: FontWeight.bold, fontFamily: 'YanoneKaffeesatz');
 
 // Button Styles
