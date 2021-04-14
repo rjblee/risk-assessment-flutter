@@ -2,6 +2,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:risk_assessment_flutter/constants.dart';
 import 'package:risk_assessment_flutter/next_button.dart';
+import 'package:risk_assessment_flutter/screens/custom_hazard.dart';
 import '../appbar.dart';
 import 'mental_wellness_questionnaire.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,6 +30,7 @@ class _HazardCategoryState extends State<HazardCategory> {
 
   int totalScore = 0;
   static List<Hazard> _hazardList = [];
+  static List<Hazard> _customHazardList = [];
 
   final _multiSelectKey = GlobalKey<FormFieldState>();
 
@@ -73,12 +75,13 @@ class _HazardCategoryState extends State<HazardCategory> {
                                   Container(
                                     padding: EdgeInsets.all(10),
                                     child: HazardDropdown(
-                                        hazardCategory: hazardCategory['hazard_category_name'],
-                                        hazardCategoryReference:
-                                            hazardCategory.reference.collection('hazard').snapshots(),
-                                        callback: (int total) {
-                                          totalHazardScore = total;
-                                        }),
+                                      hazardCategory: hazardCategory['hazard_category_name'],
+                                      hazardCategoryReference:
+                                          hazardCategory.reference.collection('hazard').snapshots(),
+                                      callback: (int total) {
+                                        totalHazardScore = total;
+                                      },
+                                    ),
                                   ),
                                 );
                               }
@@ -120,8 +123,12 @@ class _HazardCategoryState extends State<HazardCategory> {
               ],
             ),
           ),
+          NextButton(
+            buttonText: 'Add Custom Hazard',
+            nextWidget: CustomHazard(),
+          ),
           Container(
-            padding: EdgeInsets.all(50),
+            padding: EdgeInsets.fromLTRB(50, 0, 50, 50),
             width: 400,
             child: ElevatedButton(
               child: Text(
@@ -139,7 +146,7 @@ class _HazardCategoryState extends State<HazardCategory> {
               },
               style: ElevatedButton.styleFrom(
                 primary: kAppBlue,
-                onPrimary: kAppLight,
+                // onPrimary: kAppLight,
                 elevation: 10,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -148,10 +155,6 @@ class _HazardCategoryState extends State<HazardCategory> {
               ),
             ),
           ),
-          // NextButton(
-          //   buttonText: 'Next',
-          //   nextWidget: MentalWellnessQuestionnaire(totalHazardScore: totalHazardScore),
-          // ),
         ],
       ),
     );
@@ -186,7 +189,8 @@ class _HazardCategoryState extends State<HazardCategory> {
             selectedColor: Colors.black,
             selectedItemsTextStyle: TextStyle(fontSize: 20),
             decoration: BoxDecoration(
-              color: kAppLight,
+              // color: kAppLight,
+              color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(10)),
               boxShadow: [
                 BoxShadow(
