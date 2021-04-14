@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
@@ -37,6 +38,7 @@ class _CustomSliderCardState extends State<CustomSliderCard> {
               sliderValue.toString(),
               style: kSliderNumberStyle,
             ),
+
             Slider(
               value: sliderValue.toDouble(),
               min: 1,
@@ -50,6 +52,13 @@ class _CustomSliderCardState extends State<CustomSliderCard> {
                   sliderValue = newValue.round();
                 });
               },
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('low/unlikely'),
+                Text('high/likely'),
+              ],
             ),
           ],
         ),
