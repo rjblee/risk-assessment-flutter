@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:risk_assessment_flutter/constants.dart';
 import 'package:risk_assessment_flutter/next_button.dart';
 import '../appbar.dart';
+import '../custom_slider_card.dart';
 import '../slider_card.dart';
+import 'hazard_category.dart';
 import 'mental_wellness_questionnaire.dart';
 
 class CustomHazard extends StatefulWidget {
@@ -12,8 +14,11 @@ class CustomHazard extends StatefulWidget {
 }
 
 class _CustomHazardState extends State<CustomHazard> {
-  int sliderValue1;
-  int sliderValue2;
+  int sliderValue1 = 1;
+  int sliderValue2 = 1;
+  final myController = TextEditingController();
+  String typedInput;
+  static List<Hazard> customHazardList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -47,33 +52,73 @@ class _CustomHazardState extends State<CustomHazard> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: TextField(
+                          padding: const EdgeInsets.all(20.0),
+                          child: TextFormField(
+                            controller: myController,
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Hazard name',
+                              // border: OutlineInputBorder(),
+                              border: UnderlineInputBorder(),
+                              hintText: 'Add your Hazard',
                             ),
                           ),
                         ),
-                        SliderCard(
+
+                        CustomSliderCard(
                           question:
                               "Hazard Severity: How much harm would the hazard cause in the event of an accident?",
                           onChange: (newValue) {
                             sliderValue1 = (newValue.round());
                             print(sliderValue1);
-
-                            // if (wellnessQuestion['question_type'] == "negative") {
-                            //   sliderValue[i] = 10 - sliderValue[i];
-                            // }
                           },
                         ),
-                        SliderCard(
+                        CustomSliderCard(
                           question: "Hazard Likelihood: How likely is it that this hazard will result in an accident?",
                           onChange: (newValue) {
                             sliderValue2 = (newValue.round());
                             print(sliderValue2);
                           },
                         ),
+
+                        Container(
+                          padding: EdgeInsets.all(50),
+                          width: 400,
+                          child: ElevatedButton(
+                            child: Text(
+                              "Add",
+                              style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
+                            ),
+                            onPressed: () {
+                              typedInput = myController.text;
+                              print(typedInput);
+                              customHazardList.add(Hazard(hazardName: typedInput));
+
+                              var customHazardSum = sliderValue1 + sliderValue2;
+                              print("Custom sum = $customHazardSum");
+                              if (customHazardSum >= 8) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) => _buildPopup(context),
+                                );
+                              } else {
+                                // Navigator.of(context).pop();
+                                Navigator.pop(context, typedInput);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: kAppBlue,
+                              // onPrimary: kAppLight,
+                              elevation: 10,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
+                            ),
+                          ),
+                        ),
+                        // NextButton(
+                        //   buttonText: 'Next',
+                        //   nextWidget: MentalWellnessQuestionnaire(totalHazardScore: totalHazardScore),
+                        // ),
                       ],
                     ),
                   ],
@@ -81,40 +126,40 @@ class _CustomHazardState extends State<CustomHazard> {
               ],
             ),
           ),
-          Container(
-            padding: EdgeInsets.all(50),
-            width: 400,
-            child: ElevatedButton(
-              child: Text(
-                "Add",
-                style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
-              ),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  // return MentalWellnessQuestionnaire(
-                  //   totalHazardScore: totalHazardScore,
-                  //   combinedHigh: combinedHigh,
-                  //   combinedLow: combinedLow,
-                  // );
-                }));
-              },
-              style: ElevatedButton.styleFrom(
-                primary: kAppBlue,
-                onPrimary: kAppLight,
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
-              ),
-            ),
-          ),
-          // NextButton(
-          //   buttonText: 'Next',
-          //   nextWidget: MentalWellnessQuestionnaire(totalHazardScore: totalHazardScore),
-          // ),
         ],
       ),
     );
   }
+}
+
+Widget _buildPopup(BuildContext context) {
+  return new AlertDialog(
+    title: const Text(
+      'WARNING \nUNACCEPTABLE RISK LEVEL',
+      textAlign: TextAlign.center,
+    ),
+    content: new Column(
+      mainAxisSize: MainAxisSize.min,
+      // crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          "The hazard you have entered has a risk level that is too high to be allowed in a normal working environment. Remember, you have the RIGHT and RESPONSIBILITY to refuse unsafe work.",
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 20),
+        Text(
+          "Hazards severity and likelihood can be controlled with personal protective equipment, engineered controls, and training and procedures. Contact your supervisor to find acceptable methods to reduce the risk of this hazard before continuing work.",
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+    actions: <Widget>[
+      new ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: const Text('Close'),
+      ),
+    ],
+  );
 }
