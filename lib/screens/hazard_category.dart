@@ -160,7 +160,7 @@ class _HazardCategoryState extends State<HazardCategory> {
                               for (var hazardCategory in hazardCategories) {
                                 hazardCategoryList.add(
                                   Container(
-                                    padding: EdgeInsets.all(10),
+                                    padding: EdgeInsets.fromLTRB(10, 12, 10, 12),
                                     child: HazardDropdown(
                                       hazardCategory: hazardCategory['hazard_category_name'],
                                       hazardCategoryReference:
@@ -184,14 +184,14 @@ class _HazardCategoryState extends State<HazardCategory> {
                           },
                         ),
 
+                        // One-time data read for the Custom hazard category
                         FutureBuilder<QuerySnapshot>(
-                          // future: _firestore.collection('risk_level').doc(documentId).get(),
                           future: _firestore
-                              .collection('industry')
-                              .doc('2tJSRKm9KG8NMmP7me6MI')
-                              .collection('environment')
-                              .doc('1QVtTPSxgzeLVNw2bu87')
-                              .collection('hazard_category')
+                              .collection('industry') // industry collection
+                              .doc('2tJSRKm9KG8NMmP7me6MI') // services and hospitality document
+                              .collection('environment') // environment collection
+                              .doc('1QVtTPSxgzeLVNw2bu87') // community services document
+                              .collection('hazard_category') // hazard category collection
                               .get(),
                           builder: (context, snapshot) {
                             if (snapshot.hasError) {
@@ -200,47 +200,50 @@ class _HazardCategoryState extends State<HazardCategory> {
 
                             if (snapshot.hasData) {
                               _hazardList = customHazardList1;
-                              return MultiSelectDialogField(
-                                items: _hazardList
-                                    .map((hazard) => MultiSelectItem<Hazard>(hazard, hazard.hazardName))
-                                    .toList(),
-                                title: Text(
-                                  "Custom",
-                                  textAlign: TextAlign.center,
-                                ),
-                                selectedColor: Colors.black,
-                                selectedItemsTextStyle: TextStyle(fontSize: 20),
-                                decoration: BoxDecoration(
-                                  // color: kAppLight,
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.6),
-                                      spreadRadius: 4,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 4), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                buttonText: Text(
-                                  "Custom",
-                                  style: kSubHeaderTextStyle,
-                                ),
-                                onConfirm: (results) {
-                                  // hazardScore[hazardCategory] = 0;
-                                  var totalHazardScore = 0;
+                              return Container(
+                                padding: EdgeInsets.fromLTRB(10, 12, 10, 12),
+                                child: MultiSelectDialogField(
+                                  items: _hazardList
+                                      .map((hazard) => MultiSelectItem<Hazard>(hazard, hazard.hazardName))
+                                      .toList(),
+                                  title: Text(
+                                    "Custom",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  selectedColor: Colors.black,
+                                  selectedItemsTextStyle: TextStyle(fontSize: 20),
+                                  decoration: BoxDecoration(
+                                    // color: kAppLight,
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.6),
+                                        spreadRadius: 4,
+                                        blurRadius: 4,
+                                        offset: Offset(0, 4), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  buttonText: Text(
+                                    "Custom",
+                                    style: kSubHeaderTextStyle,
+                                  ),
+                                  onConfirm: (results) {
+                                    // hazardScore[hazardCategory] = 0;
+                                    var totalHazardScore = 0;
 
-                                  for (var i = 0; i < results.length; i++) {
-                                    // hazardScore[hazardCategory] += results[i].riskValue;
-                                  }
+                                    for (var i = 0; i < results.length; i++) {
+                                      // hazardScore[hazardCategory] += results[i].riskValue;
+                                    }
 
-                                  hazardScore.forEach((key, value) {
-                                    totalHazardScore += value;
-                                  });
-                                  // callback(totalHazardScore);
-                                  print(totalHazardScore);
-                                },
+                                    hazardScore.forEach((key, value) {
+                                      totalHazardScore += value;
+                                    });
+                                    // callback(totalHazardScore);
+                                    print(totalHazardScore);
+                                  },
+                                ),
                               );
                             } else {
                               return Center(
