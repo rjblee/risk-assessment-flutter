@@ -1,7 +1,6 @@
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:risk_assessment_flutter/constants.dart';
-import 'package:risk_assessment_flutter/next_button.dart';
 import 'package:risk_assessment_flutter/screens/custom_hazard.dart';
 import '../appbar.dart';
 import 'mental_wellness_questionnaire.dart';
@@ -31,12 +30,6 @@ class _HazardCategoryState extends State<HazardCategory> {
   int totalScore = 0;
   static List<Hazard> _hazardList = [];
   static List<Hazard> customHazardList1 = [];
-
-  // void updateInformation(String) {
-  //   setState(() {
-  //     customHazardList1 =
-  //   });
-  // }
 
   final _multiSelectKey = GlobalKey<FormFieldState>();
 
@@ -68,86 +61,6 @@ class _HazardCategoryState extends State<HazardCategory> {
                             style: kHeaderTextStyle,
                           ),
                         ),
-                        // StreamBuilder<QuerySnapshot>(
-                        //   stream: widget.environmentReference,
-                        //   builder: (context, snapshot) {
-                        //     if (snapshot.hasData) {
-                        //       final hazardCategories = snapshot.data.docs;
-                        //
-                        //       final List<Widget> hazardCategoryList = [];
-                        //
-                        //       for (var hazardCategory in hazardCategories) {
-                        //         if (hazardCategory['hazard_category_name'] == 'Custom') {
-                        //           _hazardList = customHazardList1;
-                        //           return MultiSelectDialogField(
-                        //             items: _hazardList
-                        //                 .map((hazard) => MultiSelectItem<Hazard>(hazard, hazard.hazardName))
-                        //                 .toList(),
-                        //             title: Text(
-                        //               "Custom",
-                        //               textAlign: TextAlign.center,
-                        //             ),
-                        //             selectedColor: Colors.black,
-                        //             selectedItemsTextStyle: TextStyle(fontSize: 20),
-                        //             decoration: BoxDecoration(
-                        //               // color: kAppLight,
-                        //               color: Colors.white,
-                        //               borderRadius: BorderRadius.all(Radius.circular(10)),
-                        //               boxShadow: [
-                        //                 BoxShadow(
-                        //                   color: Colors.grey.withOpacity(0.6),
-                        //                   spreadRadius: 4,
-                        //                   blurRadius: 4,
-                        //                   offset: Offset(0, 4), // changes position of shadow
-                        //                 ),
-                        //               ],
-                        //             ),
-                        //             buttonText: Text(
-                        //               "Custom",
-                        //               style: kSubHeaderTextStyle,
-                        //             ),
-                        //             onConfirm: (results) {
-                        //               hazardScore[hazardCategory] = 0;
-                        //               var totalHazardScore = 0;
-                        //
-                        //               for (var i = 0; i < results.length; i++) {
-                        //                 hazardScore[hazardCategory] += results[i].riskValue;
-                        //               }
-                        //
-                        //               hazardScore.forEach((key, value) {
-                        //                 totalHazardScore += value;
-                        //               });
-                        //               // callback(totalHazardScore);
-                        //               print(totalHazardScore);
-                        //             },
-                        //           );
-                        //         } else {
-                        //           hazardCategoryList.add(
-                        //             Container(
-                        //               padding: EdgeInsets.all(10),
-                        //               child: HazardDropdown(
-                        //                 hazardCategory: hazardCategory['hazard_category_name'],
-                        //                 hazardCategoryReference:
-                        //                     hazardCategory.reference.collection('hazard').snapshots(),
-                        //                 callback: (int total) {
-                        //                   totalHazardScore = total;
-                        //                 },
-                        //               ),
-                        //             ),
-                        //           );
-                        //         }
-                        //       }
-                        //
-                        //       return Column(
-                        //         children: hazardCategoryList,
-                        //       );
-                        //     } else {
-                        //       return Center(
-                        //         child: CircularProgressIndicator(),
-                        //       );
-                        //     }
-                        //   },
-                        // ),
 
                         StreamBuilder<QuerySnapshot>(
                           stream: widget.environmentReference,
@@ -274,10 +187,6 @@ class _HazardCategoryState extends State<HazardCategory> {
                             return Text("");
                           },
                         ),
-                        // Container(
-                        //   padding: EdgeInsets.all(10),
-                        //   child: HazardDropdown(hazardCategory: "Test"),
-                        // ),
                       ],
                     ),
                   ],
@@ -285,10 +194,8 @@ class _HazardCategoryState extends State<HazardCategory> {
               ],
             ),
           ),
-          // NextButton(
-          //   buttonText: 'Add Custom Hazard',
-          //   nextWidget: CustomHazard(),
-          // ),
+
+          // Add Custom Hazard button to setState when finished adding a new custom hazard to bring back the data
           Container(
             padding: EdgeInsets.fromLTRB(50, 0, 50, 50),
             width: 400,
