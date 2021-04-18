@@ -1,12 +1,8 @@
-import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:risk_assessment_flutter/constants.dart';
-import 'package:risk_assessment_flutter/next_button.dart';
 import '../appbar.dart';
 import '../custom_slider_card.dart';
-import '../slider_card.dart';
 import 'hazard_category.dart';
-import 'mental_wellness_questionnaire.dart';
 
 class CustomHazard extends StatefulWidget {
   @override
@@ -62,7 +58,6 @@ class _CustomHazardState extends State<CustomHazard> {
                             ),
                           ),
                         ),
-
                         CustomSliderCard(
                           question:
                               "Hazard Severity: How much harm would the hazard cause in the event of an accident?",
@@ -78,7 +73,6 @@ class _CustomHazardState extends State<CustomHazard> {
                             print(sliderValue2);
                           },
                         ),
-
                         Container(
                           padding: EdgeInsets.all(50),
                           width: 400,
@@ -115,10 +109,6 @@ class _CustomHazardState extends State<CustomHazard> {
                             ),
                           ),
                         ),
-                        // NextButton(
-                        //   buttonText: 'Next',
-                        //   nextWidget: MentalWellnessQuestionnaire(totalHazardScore: totalHazardScore),
-                        // ),
                       ],
                     ),
                   ],
@@ -140,7 +130,6 @@ Widget _buildPopup(BuildContext context) {
     ),
     content: new Column(
       mainAxisSize: MainAxisSize.min,
-      // crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
           "The hazard you have entered has a risk level that is too high to be allowed in a normal working environment. Remember, you have the RIGHT and RESPONSIBILITY to refuse unsafe work.",
