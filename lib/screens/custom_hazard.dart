@@ -86,8 +86,11 @@ class _CustomHazardState extends State<CustomHazard> {
 
                               // customHazardList.add(Hazard(hazardName: typedInput));
 
-                              var customHazardSum = sliderValue1 * sliderValue2;
-                              print("Custom sum = $customHazardSum");
+                              int customHazardRiskValue = sliderValue1 * sliderValue2;
+                              print("Custom Hazard Risk Value = $customHazardRiskValue");
+
+                              var customHazardData = [customHazardText, customHazardRiskValue];
+
                               if (myController.text == '') {
                                 ScaffoldMessenger.of(context)
                                   ..removeCurrentSnackBar()
@@ -98,14 +101,14 @@ class _CustomHazardState extends State<CustomHazard> {
                                     ),
                                   );
                               } else {
-                                if (customHazardSum >= 16) {
+                                if (customHazardRiskValue >= 16) {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) => _buildPopup(context),
                                   );
                                 } else {
                                   // Navigator.of(context).pop();
-                                  Navigator.pop(context, customHazardText);
+                                  Navigator.pop(context, customHazardData);
                                 }
                               }
                             },
