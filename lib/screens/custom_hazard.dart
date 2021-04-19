@@ -13,8 +13,9 @@ class _CustomHazardState extends State<CustomHazard> {
   int sliderValue1 = 1;
   int sliderValue2 = 1;
   final myController = TextEditingController();
-  String typedInput;
+  String customHazardText;
   static List<Hazard> customHazardList = [];
+  bool _validate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +56,14 @@ class _CustomHazardState extends State<CustomHazard> {
                               // border: OutlineInputBorder(),
                               border: UnderlineInputBorder(),
                               hintText: 'Add your Hazard',
+                              errorText: _validate ? 'Value Can\'t Be Empty' : null,
                             ),
+                            validator: (text) {
+                              if (text == null || text.isEmpty) {
+                                return 'Text is empty';
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         CustomSliderCard(
@@ -82,20 +90,32 @@ class _CustomHazardState extends State<CustomHazard> {
                               style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
                             ),
                             onPressed: () {
-                              typedInput = myController.text;
-                              print(typedInput);
-                              customHazardList.add(Hazard(hazardName: typedInput));
+                              customHazardText = myController.text;
+                              print(customHazardText);
 
-                              var customHazardSum = sliderValue1 + sliderValue2;
+                              // customHazardList.add(Hazard(hazardName: typedInput));
+
+                              var customHazardSum = sliderValue1 * sliderValue2;
                               print("Custom sum = $customHazardSum");
-                              if (customHazardSum >= 8) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) => _buildPopup(context),
-                                );
+                              if (myController.text == '') {
+                                ScaffoldMessenger.of(context)
+                                  ..removeCurrentSnackBar()
+                                  ..showSnackBar(
+                                    SnackBar(
+                                      content: Text("No hazard has been added"),
+                                      backgroundColor: kAppBlue,
+                                    ),
+                                  );
                               } else {
-                                // Navigator.of(context).pop();
-                                Navigator.pop(context, typedInput);
+                                if (customHazardSum >= 16) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => _buildPopup(context),
+                                  );
+                                } else {
+                                  // Navigator.of(context).pop();
+                                  Navigator.pop(context, customHazardText);
+                                }
                               }
                             },
                             style: ElevatedButton.styleFrom(
