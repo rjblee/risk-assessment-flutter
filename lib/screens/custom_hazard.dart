@@ -14,8 +14,6 @@ class _CustomHazardState extends State<CustomHazard> {
   int sliderValue2 = 1;
   final myController = TextEditingController();
   String customHazardText;
-  static List<Hazard> customHazardList = [];
-  bool _validate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -56,14 +54,7 @@ class _CustomHazardState extends State<CustomHazard> {
                               // border: OutlineInputBorder(),
                               border: UnderlineInputBorder(),
                               hintText: 'Add your Hazard',
-                              errorText: _validate ? 'Value Can\'t Be Empty' : null,
                             ),
-                            validator: (text) {
-                              if (text == null || text.isEmpty) {
-                                return 'Text is empty';
-                              }
-                              return null;
-                            },
                           ),
                         ),
                         CustomSliderCard(
@@ -102,7 +93,7 @@ class _CustomHazardState extends State<CustomHazard> {
                                   ..removeCurrentSnackBar()
                                   ..showSnackBar(
                                     SnackBar(
-                                      content: Text("No hazard has been added"),
+                                      content: Text("Please type a hazard"),
                                       backgroundColor: kAppBlue,
                                     ),
                                   );
