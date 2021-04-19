@@ -21,6 +21,7 @@ class HazardCategory extends StatefulWidget {
 class _HazardCategoryState extends State<HazardCategory> {
   //{"physical Score": 0,'bil'}
   Map hazardScore = new Map();
+  int customHazardScore = 0;
 
   static int totalHazardScore = 0;
   static int combinedHigh;
@@ -29,7 +30,7 @@ class _HazardCategoryState extends State<HazardCategory> {
 
   int totalScore = 0;
   static List<Hazard> _hazardList = [];
-  static List<Hazard> customHazardList1 = [];
+  static List<Hazard> customHazardList = [];
 
   final _multiSelectKey = GlobalKey<FormFieldState>();
 
@@ -112,7 +113,7 @@ class _HazardCategoryState extends State<HazardCategory> {
                             }
 
                             if (snapshot.hasData) {
-                              _hazardList = customHazardList1;
+                              _hazardList = customHazardList;
                               return Container(
                                 padding: EdgeInsets.fromLTRB(10, 12, 10, 12),
                                 child: MultiSelectDialogField(
@@ -143,17 +144,19 @@ class _HazardCategoryState extends State<HazardCategory> {
                                     style: kSubHeaderTextStyle,
                                   ),
                                   onConfirm: (results) {
-                                    // hazardScore[hazardCategory] = 0;
-                                    var totalHazardScore = 0;
+                                    // customHazardScore = 0;
+                                    // var totalHazardScore = 0;
 
                                     for (var i = 0; i < results.length; i++) {
-                                      // hazardScore[hazardCategory] += results[i].riskValue;
+                                      customHazardScore += results[i].riskValue;
                                     }
 
-                                    hazardScore.forEach((key, value) {
-                                      totalHazardScore += value;
-                                    });
-                                    // callback(totalHazardScore);
+                                    totalHazardScore += customHazardScore;
+                                    // hazardScore.forEach((key, value) {
+                                    //   totalHazardScore += value;
+                                    // });
+
+                                    print(customHazardScore);
                                     print(totalHazardScore);
                                   },
                                 ),
@@ -197,7 +200,7 @@ class _HazardCategoryState extends State<HazardCategory> {
 
           // Add Custom Hazard button to setState when finished adding a new custom hazard to bring back the data
           Container(
-            padding: EdgeInsets.fromLTRB(50, 0, 50, 50),
+            padding: EdgeInsets.fromLTRB(50, 50, 50, 25),
             width: 400,
             child: ElevatedButton(
               child: Text(
@@ -213,12 +216,12 @@ class _HazardCategoryState extends State<HazardCategory> {
                   ScaffoldMessenger.of(context)
                     ..removeCurrentSnackBar()
                     ..showSnackBar(SnackBar(
-                      content: Text("$result added!"),
+                      content: Text("${result[0]} added!"),
                       backgroundColor: kAppBlue,
                     ));
 
                   setState(() {
-                    customHazardList1.add(Hazard(hazardName: '$result'));
+                    customHazardList.add(Hazard(hazardName: '${result[0]}', riskValue: result[1]));
                   });
                 }
               },
@@ -292,7 +295,7 @@ class _HazardCategoryState extends State<HazardCategory> {
               "$hazardCategory",
               textAlign: TextAlign.center,
             ),
-            selectedColor: Colors.black,
+            selectedColor: kAppBlue,
             selectedItemsTextStyle: TextStyle(fontSize: 20),
             decoration: BoxDecoration(
               // color: kAppLight,
@@ -322,7 +325,6 @@ class _HazardCategoryState extends State<HazardCategory> {
               hazardScore.forEach((key, value) {
                 totalHazardScore += value;
               });
-              callback(totalHazardScore);
               print(totalHazardScore);
             },
           );
