@@ -209,13 +209,18 @@ class _HazardCategoryState extends State<HazardCategory> {
                   return CustomHazard();
                 }));
 
-                ScaffoldMessenger.of(context)
-                  ..removeCurrentSnackBar()
-                  ..showSnackBar(SnackBar(content: Text("$result")));
+                if (result != null) {
+                  ScaffoldMessenger.of(context)
+                    ..removeCurrentSnackBar()
+                    ..showSnackBar(SnackBar(
+                      content: Text("$result added!"),
+                      backgroundColor: kAppBlue,
+                    ));
 
-                setState(() {
-                  customHazardList1.add(Hazard(hazardName: '$result'));
-                });
+                  setState(() {
+                    customHazardList1.add(Hazard(hazardName: '$result'));
+                  });
+                }
               },
               style: ElevatedButton.styleFrom(
                 primary: kAppBlue,
