@@ -193,7 +193,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 ),
               ],
               borderRadius: BorderRadius.circular(10),
-              color: kAppLight,
+              color: Colors.white,
             ),
             child: Column(
               children: [
@@ -245,7 +245,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 ),
               ],
               borderRadius: BorderRadius.circular(10),
-              color: kAppLight,
+              color: Colors.white,
             ),
             child: Column(
               children: [
