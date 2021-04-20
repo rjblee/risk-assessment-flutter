@@ -14,6 +14,7 @@ class _CustomHazardState extends State<CustomHazard> {
   int sliderValue2 = 1;
   final myController = TextEditingController();
   String customHazardText;
+  int customHazardRiskValue;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +87,7 @@ class _CustomHazardState extends State<CustomHazard> {
 
                               // customHazardList.add(Hazard(hazardName: typedInput));
 
-                              int customHazardRiskValue = sliderValue1 * sliderValue2;
+                              customHazardRiskValue = sliderValue1 * sliderValue2;
                               print("Custom Hazard Risk Value = $customHazardRiskValue");
 
                               var customHazardData = [customHazardText, customHazardRiskValue];
@@ -107,7 +108,7 @@ class _CustomHazardState extends State<CustomHazard> {
                                     builder: (BuildContext context) => _buildPopup(context),
                                   );
                                 } else {
-                                  // Navigator.of(context).pop();
+                                  // Navigator.of(context).pop(customHazardData);
                                   Navigator.pop(context, customHazardData);
                                 }
                               }
