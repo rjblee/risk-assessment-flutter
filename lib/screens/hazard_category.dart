@@ -30,18 +30,14 @@ class _HazardCategoryState extends State<HazardCategory> {
   static int combinedHigh;
   static int combinedLow;
   static MultiSelectDialogField customMultiSelectField;
+
+  // DocumentId for the combined score thresholds
   String documentId = 'xWgXGdtkGY64hClTe4vG';
 
   static List<Hazard> _hazardList = [];
   static List<Hazard> customHazardList = [];
 
   final _multiSelectKey = GlobalKey<FormFieldState>();
-
-  void refresh(newList) {
-    setState(() {
-      customHazardList = newList;
-    });
-  }
 
   @override
   void initState() {
@@ -77,19 +73,12 @@ class _HazardCategoryState extends State<HazardCategory> {
       ),
       onConfirm: (results) {
         totalCustomHazardScore = 0;
-        // var totalHazardScore = 0;
 
         for (var i = 0; i < results.length; i++) {
           totalCustomHazardScore += results[i].riskValue;
         }
 
-        // totalHazardScore += customHazardScore;
-        // hazardScore.forEach((key, value) {
-        //   totalHazardScore += value;
-        // });
-
         print('custom $totalCustomHazardScore');
-        // print('total $totalHazardScore');
       },
     );
     return Scaffold(
@@ -169,6 +158,7 @@ class _HazardCategoryState extends State<HazardCategory> {
                         //
                         //       return
 
+                        // Custom Hazard Category
                         Container(
                           padding: EdgeInsets.fromLTRB(10, 12, 10, 12),
                           child: customMultiSelectField,
@@ -220,32 +210,19 @@ class _HazardCategoryState extends State<HazardCategory> {
                 style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
               ),
               onPressed: () async {
-                final result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
+                final newCustomData = await Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return CustomHazard();
                 }));
-                //     .then((value) {
-                //   setState(() {
-                //     customHazardList = value;
-                //   });
-                // });
-                // refresh(result);
-                print("here is the result");
-                print(result);
-                if (result != null) {
+
+                if (newCustomData != null) {
                   ScaffoldMessenger.of(context)
                     ..removeCurrentSnackBar()
                     ..showSnackBar(SnackBar(
-                      content: Text("${result.hazardName} added!"),
+                      content: Text("${newCustomData.hazardName} added!"),
                       backgroundColor: kAppBlue,
                     ));
-                  //setState(() {
-                  //multi.
 
-                  //customHazardList = result;
-                  //var hazard = result;
-                  print(result);
-
-                  customMultiSelectField.items.add(MultiSelectItem<Hazard>(result, result.hazardName));
+                  customMultiSelectField.items.add(MultiSelectItem<Hazard>(newCustomData, newCustomData.hazardName));
                   //});
                   // customHazardList = result;
 
@@ -280,8 +257,6 @@ class _HazardCategoryState extends State<HazardCategory> {
                 style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
               ),
               onPressed: () {
-                // totalHazardScore = 0;
-
                 totalHazardScore = totalNonCustomHazardScore + totalCustomHazardScore;
 
                 print(totalHazardScore);
@@ -367,6 +342,7 @@ class _HazardCategoryState extends State<HazardCategory> {
               hazardScore.forEach((key, value) {
                 totalNonCustomHazardScore += value;
               });
+
               callback(totalNonCustomHazardScore);
               print('--- $totalNonCustomHazardScore');
             },
@@ -381,16 +357,10 @@ class _HazardCategoryState extends State<HazardCategory> {
   }
 }
 
-// Hazard constructor
+// Hazard class constructor
 class Hazard {
   Hazard({this.hazardName, this.riskValue});
 
   final String hazardName;
   final int riskValue;
 }
-
-// refresh(){
-//   setState(() {
-//     customHazardList = result;
-//   });
-// }
