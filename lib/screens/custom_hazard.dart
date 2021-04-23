@@ -85,13 +85,10 @@ class _CustomHazardState extends State<CustomHazard> {
                               customHazardText = myController.text;
                               print(customHazardText);
 
-                              // customHazardList.add(Hazard(hazardName: typedInput));
-
                               customHazardRiskValue = sliderValue1 * sliderValue2;
                               print("Custom Hazard Risk Value = $customHazardRiskValue");
 
-                              var customHazardData = [customHazardText, customHazardRiskValue];
-
+                              // Snackbar message when hazard input is empty
                               if (myController.text == '') {
                                 ScaffoldMessenger.of(context)
                                   ..removeCurrentSnackBar()
@@ -108,8 +105,12 @@ class _CustomHazardState extends State<CustomHazard> {
                                     builder: (BuildContext context) => _buildPopup(context),
                                   );
                                 } else {
-                                  // Navigator.of(context).pop(customHazardData);
-                                  Navigator.pop(context, customHazardData);
+                                  var customHazardObject = Hazard(
+                                    hazardName: customHazardText,
+                                    riskValue: customHazardRiskValue,
+                                  );
+
+                                  Navigator.pop(context, customHazardObject);
                                 }
                               }
                             },
@@ -137,6 +138,7 @@ class _CustomHazardState extends State<CustomHazard> {
   }
 }
 
+// Popup when custom risk level is above the threshold
 Widget _buildPopup(BuildContext context) {
   return new AlertDialog(
     title: const Text(
