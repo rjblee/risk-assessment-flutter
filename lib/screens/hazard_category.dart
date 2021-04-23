@@ -21,18 +21,27 @@ class HazardCategory extends StatefulWidget {
 class _HazardCategoryState extends State<HazardCategory> {
   //{"physical Score": 0,'bil'}
   Map hazardScore = new Map();
-  int customHazardScore = 0;
+  int totalCustomHazardScore = 0;
 
-  static int totalHazardScore = 0;
+  static int totalNonCustomHazardScore = 0;
+  int totalNonCustomHazardScore1 = 0;
+  int totalHazardScore = 0;
+
   static int combinedHigh;
   static int combinedLow;
+  static MultiSelectDialogField customMultiSelectField;
   String documentId = 'xWgXGdtkGY64hClTe4vG';
 
-  int totalScore = 0;
   static List<Hazard> _hazardList = [];
   static List<Hazard> customHazardList = [];
 
   final _multiSelectKey = GlobalKey<FormFieldState>();
+
+  void refresh(newList) {
+    setState(() {
+      customHazardList = newList;
+    });
+  }
 
   @override
   void initState() {
@@ -41,6 +50,48 @@ class _HazardCategoryState extends State<HazardCategory> {
 
   @override
   Widget build(BuildContext context) {
+    customMultiSelectField = MultiSelectDialogField(
+      items: customHazardList.map((hazard) => MultiSelectItem<Hazard>(hazard, hazard.hazardName)).toList(),
+      title: Text(
+        "Custom",
+        textAlign: TextAlign.center,
+      ),
+      selectedColor: kAppBlue,
+      selectedItemsTextStyle: TextStyle(fontSize: 20),
+      decoration: BoxDecoration(
+        // color: kAppLight,
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.6),
+            spreadRadius: 4,
+            blurRadius: 4,
+            offset: Offset(0, 4), // changes position of shadow
+          ),
+        ],
+      ),
+      buttonText: Text(
+        "Custom",
+        style: kSubHeaderTextStyle,
+      ),
+      onConfirm: (results) {
+        totalCustomHazardScore = 0;
+        // var totalHazardScore = 0;
+
+        for (var i = 0; i < results.length; i++) {
+          totalCustomHazardScore += results[i].riskValue;
+        }
+
+        // totalHazardScore += customHazardScore;
+        // hazardScore.forEach((key, value) {
+        //   totalHazardScore += value;
+        // });
+
+        print('custom $totalCustomHazardScore');
+        // print('total $totalHazardScore');
+      },
+    );
     return Scaffold(
       appBar: myAppBar(),
       body: Column(
@@ -79,8 +130,9 @@ class _HazardCategoryState extends State<HazardCategory> {
                                       hazardCategory: hazardCategory['hazard_category_name'],
                                       hazardCategoryReference:
                                           hazardCategory.reference.collection('hazard').snapshots(),
-                                      callback: (int total) {
-                                        totalHazardScore = total;
+                                      callback: (int riskValueScore) {
+                                        totalNonCustomHazardScore = 0;
+                                        totalNonCustomHazardScore = riskValueScore;
                                       },
                                     ),
                                   ),
@@ -99,75 +151,35 @@ class _HazardCategoryState extends State<HazardCategory> {
                         ),
 
                         // One-time data read for the Custom hazard category
-                        FutureBuilder<QuerySnapshot>(
-                          future: _firestore
-                              .collection('industry') // industry collection
-                              .doc('2tJSRKm9KG8NMmP7me6MI') // services and hospitality document
-                              .collection('environment') // environment collection
-                              .doc('1QVtTPSxgzeLVNw2bu87') // community services document
-                              .collection('hazard_category') // hazard category collection
-                              .get(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasError) {
-                              return Text("Something went wrong");
-                            }
+                        // FutureBuilder<QuerySnapshot>(
+                        //   future: _firestore
+                        //       .collection('industry') // industry collection
+                        //       .doc('2tJSRKm9KG8NMmP7me6MI') // services and hospitality document
+                        //       .collection('environment') // environment collection
+                        //       .doc('1QVtTPSxgzeLVNw2bu87') // community services document
+                        //       .collection('hazard_category') // hazard category collection
+                        //       .get(),
+                        //   builder: (context, snapshot) {
+                        //     if (snapshot.hasError) {
+                        //       return Text("Something went wrong");
+                        //     }
+                        //
+                        //     if (snapshot.hasData) {
+                        //       _hazardList = customHazardList;
+                        //
+                        //       return
 
-                            if (snapshot.hasData) {
-                              _hazardList = customHazardList;
-                              return Container(
-                                padding: EdgeInsets.fromLTRB(10, 12, 10, 12),
-                                child: MultiSelectDialogField(
-                                  items: _hazardList
-                                      .map((hazard) => MultiSelectItem<Hazard>(hazard, hazard.hazardName))
-                                      .toList(),
-                                  title: Text(
-                                    "Custom",
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  selectedColor: Colors.black,
-                                  selectedItemsTextStyle: TextStyle(fontSize: 20),
-                                  decoration: BoxDecoration(
-                                    // color: kAppLight,
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.6),
-                                        spreadRadius: 4,
-                                        blurRadius: 4,
-                                        offset: Offset(0, 4), // changes position of shadow
-                                      ),
-                                    ],
-                                  ),
-                                  buttonText: Text(
-                                    "Custom",
-                                    style: kSubHeaderTextStyle,
-                                  ),
-                                  onConfirm: (results) {
-                                    // customHazardScore = 0;
-                                    // var totalHazardScore = 0;
-
-                                    for (var i = 0; i < results.length; i++) {
-                                      customHazardScore += results[i].riskValue;
-                                    }
-
-                                    totalHazardScore += customHazardScore;
-                                    // hazardScore.forEach((key, value) {
-                                    //   totalHazardScore += value;
-                                    // });
-
-                                    print(customHazardScore);
-                                    print(totalHazardScore);
-                                  },
-                                ),
-                              );
-                            } else {
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                          },
+                        Container(
+                          padding: EdgeInsets.fromLTRB(10, 12, 10, 12),
+                          child: customMultiSelectField,
                         ),
+                        // } else {
+                        //   return Center(
+                        //     child: CircularProgressIndicator(),
+                        //   );
+                        // }
+                        //   },
+                        // ),
 
                         // FutureBuilder to retrieve the threshold data from backend for result colour
                         FutureBuilder<DocumentSnapshot>(
@@ -211,18 +223,41 @@ class _HazardCategoryState extends State<HazardCategory> {
                 final result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return CustomHazard();
                 }));
-
+                //     .then((value) {
+                //   setState(() {
+                //     customHazardList = value;
+                //   });
+                // });
+                // refresh(result);
+                print("here is the result");
+                print(result);
                 if (result != null) {
                   ScaffoldMessenger.of(context)
                     ..removeCurrentSnackBar()
                     ..showSnackBar(SnackBar(
-                      content: Text("${result[0]} added!"),
+                      content: Text("${result.hazardName} added!"),
                       backgroundColor: kAppBlue,
                     ));
+                  //setState(() {
+                  //multi.
 
-                  setState(() {
-                    customHazardList.add(Hazard(hazardName: '${result[0]}', riskValue: result[1]));
-                  });
+                  //customHazardList = result;
+                  //var hazard = result;
+                  print(result);
+
+                  customMultiSelectField.items.add(MultiSelectItem<Hazard>(result, result.hazardName));
+                  //});
+                  // customHazardList = result;
+
+                  // setState(() {
+                  //   totalNonCustomHazardScore = 0;
+                  //   customHazardList.add(
+                  //     Hazard(
+                  //       hazardName: '${result[0]}',
+                  //       riskValue: result[1],
+                  //     ),
+                  //   );
+                  // });
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -245,6 +280,12 @@ class _HazardCategoryState extends State<HazardCategory> {
                 style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
               ),
               onPressed: () {
+                // totalHazardScore = 0;
+
+                totalHazardScore = totalNonCustomHazardScore + totalCustomHazardScore;
+
+                print(totalHazardScore);
+
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return MentalWellnessQuestionnaire(
                     totalHazardScore: totalHazardScore,
@@ -316,16 +357,18 @@ class _HazardCategoryState extends State<HazardCategory> {
             ),
             onConfirm: (results) {
               hazardScore[hazardCategory] = 0;
-              var totalHazardScore = 0;
+
+              totalNonCustomHazardScore = 0;
 
               for (var i = 0; i < results.length; i++) {
                 hazardScore[hazardCategory] += results[i].riskValue;
               }
 
               hazardScore.forEach((key, value) {
-                totalHazardScore += value;
+                totalNonCustomHazardScore += value;
               });
-              print(totalHazardScore);
+              callback(totalNonCustomHazardScore);
+              print('--- $totalNonCustomHazardScore');
             },
           );
         } else {
@@ -345,3 +388,9 @@ class Hazard {
   final String hazardName;
   final int riskValue;
 }
+
+// refresh(){
+//   setState(() {
+//     customHazardList = result;
+//   });
+// }
