@@ -163,13 +163,6 @@ class _HazardCategoryState extends State<HazardCategory> {
                           padding: EdgeInsets.fromLTRB(10, 12, 10, 12),
                           child: customMultiSelectField,
                         ),
-                        // } else {
-                        //   return Center(
-                        //     child: CircularProgressIndicator(),
-                        //   );
-                        // }
-                        //   },
-                        // ),
 
                         // FutureBuilder to retrieve the threshold data from backend for result colour
                         FutureBuilder<DocumentSnapshot>(
@@ -222,19 +215,9 @@ class _HazardCategoryState extends State<HazardCategory> {
                       backgroundColor: kAppBlue,
                     ));
 
-                  customMultiSelectField.items.add(MultiSelectItem<Hazard>(newCustomData, newCustomData.hazardName));
-                  //});
-                  // customHazardList = result;
-
-                  // setState(() {
-                  //   totalNonCustomHazardScore = 0;
-                  //   customHazardList.add(
-                  //     Hazard(
-                  //       hazardName: '${result[0]}',
-                  //       riskValue: result[1],
-                  //     ),
-                  //   );
-                  // });
+                  customMultiSelectField.items.add(
+                    MultiSelectItem<Hazard>(newCustomData, newCustomData.hazardName),
+                  );
                 }
               },
               style: ElevatedButton.styleFrom(
