@@ -19,7 +19,6 @@ class HazardCategory extends StatefulWidget {
 }
 
 class _HazardCategoryState extends State<HazardCategory> {
-  //{"physical Score": 0,'bil'}
   Map hazardScore = new Map();
   int totalCustomHazardScore = 0;
 
@@ -34,6 +33,7 @@ class _HazardCategoryState extends State<HazardCategory> {
   // DocumentId for the combined score thresholds
   String documentId = 'xWgXGdtkGY64hClTe4vG';
 
+  // Hazard dropdown list arrays
   static List<Hazard> _hazardList = [];
   static List<Hazard> customHazardList = [];
 
@@ -268,6 +268,7 @@ class _HazardCategoryState extends State<HazardCategory> {
     );
   }
 
+  // Hazard Dropdown widget with the MultiSelectDialogField package
   HazardDropdown({hazardCategory, hazardCategoryReference, callback}) {
     return StreamBuilder<QuerySnapshot>(
       stream: hazardCategoryReference,
