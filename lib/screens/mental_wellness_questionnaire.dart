@@ -60,7 +60,8 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                       if (snapshot.hasData) {
                         final wellnessQuestions = snapshot.data.docs;
                         final List<Widget> wellnessQuestionList = [];
-                        sliderValue = new List<int>.filled(wellnessQuestions.length, 5);
+                        sliderValue =
+                            new List<int>.filled(wellnessQuestions.length, 5); // sliderValue is "filled" with value 5
 
                         for (var i = 0; i < wellnessQuestions.length; i++) {
                           var wellnessQuestion = wellnessQuestions[i];
@@ -71,6 +72,7 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                               onChange: (newValue) {
                                 sliderValue[i] = (newValue.round());
 
+                                // For the negative type of questions, the higher sliderValue will be a low value
                                 if (wellnessQuestion['question_type'] == "negative") {
                                   sliderValue[i] = 10 - sliderValue[i];
                                 }
@@ -112,6 +114,7 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
 
                         var boxColour;
 
+                        // Determine the result section background colour by comparing the threshold values from the backend
                         if (totalCombinedScore >= widget.combinedHigh) {
                           boxColour = kResultHighColour;
                         } else if (totalCombinedScore >= widget.combinedLow) {
