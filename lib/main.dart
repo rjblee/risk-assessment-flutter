@@ -18,6 +18,7 @@ void main() async {
   runApp(MyApp());
 }
 
+// Starting component to determine basic themes and settings
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
