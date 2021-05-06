@@ -1,6 +1,6 @@
-# risk_assessment_flutter
+# Safety and Hazard Risk Assessment App
 
-Safety and Hazard Risk Assessment App for Swift Learning
+Safety and Hazard Risk Assessment App for Swift Learning and Safety in Schools
 
 ## Getting Started
 
