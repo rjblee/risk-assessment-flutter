@@ -1,6 +1,6 @@
 # Safety and Hazard Risk Assessment App
 
-Safety and Hazard Risk Assessment Mobile Application for Swift Learning and Safety in Schools
+Safety and Hazard Risk Assessment also known as "SAHARA" Mobile Application for Swift Learning and Safety in Schools is a government funded project for Alberta's high school students' risk assessment for their work safety. 
 
 
 ## Getting Started
