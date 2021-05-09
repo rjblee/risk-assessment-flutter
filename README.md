@@ -5,6 +5,12 @@ Safety and Hazard Risk Assessment also known as "SAHARA" Mobile Application for 
 
 ## Getting Started
 
+1. Fork this repository, then clone your fork of this repository.
+2. Open the cloned repository on Android Studio.
+3. Open pubspec.yaml file and install the needed dependencies by clicking on the "Pub get" button on right top corner of Android Studio.
+4. Download a virtual mobile device and start the emulator/simulator.
+
+
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
@@ -16,10 +22,7 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-1. Fork this repository, then clone your fork of this repository.
-2. Open the cloned repository on Android Studio.
-3. Open pubspec.yaml file and install the needed dependencies by clicking on the "Pub get" button on right top corner of Android Studio.
-4. Download a virtual mobile device and start the emulator/simulator.
+
 
 
 ## Tech Stacks
