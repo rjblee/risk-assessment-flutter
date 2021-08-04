@@ -19,7 +19,7 @@ class Result extends StatefulWidget {
 
   final int totalHazardScore;
   final int totalMentalScore;
-  final int totalCombinedScore;
+  final totalCombinedScore;
   final boxColour;
 
   @override
