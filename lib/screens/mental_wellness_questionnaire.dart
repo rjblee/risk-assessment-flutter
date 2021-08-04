@@ -110,7 +110,23 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                         print("Mental Score from mental page:");
                         print(totalMentalScore);
 
-                        var totalCombinedScore = widget.totalHazardScore * totalMentalScore;
+                        double compoundingFactor;
+
+                        if (totalMentalScore <= 12) {
+                          compoundingFactor = 1;
+                        } else if (totalMentalScore >= 26) {
+                          compoundingFactor = 2;
+                        } else {
+                          compoundingFactor = 1.5;
+                        }
+
+                        print("Compounding factor: ");
+                        print(compoundingFactor);
+
+                        double totalCombinedScore = widget.totalHazardScore * compoundingFactor;
+
+                        print("Total Combined Score: ");
+                        print(totalCombinedScore);
 
                         var boxColour;
 
