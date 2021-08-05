@@ -22,49 +22,53 @@ class _EnvironmentState extends State<Environment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar(),
-      body: Container(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  'Select your Environment',
-                  textAlign: TextAlign.center,
-                  style: kHeaderTextStyle,
-                ),
+      body: ListView(
+        children: [
+          Container(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: Text(
+                      'Select your Environment',
+                      textAlign: TextAlign.center,
+                      style: kHeaderTextStyle,
+                    ),
+                  ),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: widget.industryReference,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final environments = snapshot.data.docs;
+                        final List<Widget> environmentList = [];
+
+                        for (var environment in environments) {
+                          // print(environment.reference.collection('hazard_category').snapshots());
+                          environmentList.add(
+                            EnvironmentBox(
+                              environmentName: environment['environment_name'],
+                              environmentReference: environment.reference.collection('hazard_category').snapshots(),
+                            ),
+                          );
+                        }
+
+                        return Column(
+                          children: environmentList,
+                        );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  )
+                ],
               ),
-              StreamBuilder<QuerySnapshot>(
-                stream: widget.industryReference,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final environments = snapshot.data.docs;
-                    final List<Widget> environmentList = [];
-
-                    for (var environment in environments) {
-                      // print(environment.reference.collection('hazard_category').snapshots());
-                      environmentList.add(
-                        EnvironmentBox(
-                          environmentName: environment['environment_name'],
-                          environmentReference: environment.reference.collection('hazard_category').snapshots(),
-                        ),
-                      );
-                    }
-
-                    return Column(
-                      children: environmentList,
-                    );
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              )
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
