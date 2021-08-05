@@ -9,40 +9,45 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Container(
-            child: Column(
-              children: [
-                Image.asset(
-                  'images/Sahara Placeholder Logo Square New.png',
-                  width: 340,
+      body: ListView(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 40),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'images/Sahara Placeholder Logo Square New.png',
+                      width: 340,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(bottom: 50),
-            child: Column(
-              children: [
-                Text(
-                  'Powered by',
-                  style: kSubHeaderTextStyle,
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: 50),
+                child: Column(
+                  children: [
+                    Text(
+                      'Powered by',
+                      style: kSubHeaderTextStyle,
+                    ),
+                    SizedBox(height: 20),
+                    Center(
+                      child: Image.asset(
+                        'images/SIS Logo.png',
+                        width: 240,
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 20),
-                Center(
-                  child: Image.asset(
-                    'images/SIS Logo.png',
-                    width: 240,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          NextButton(
-            buttonText: 'Get Started',
-            nextWidget: Agreement(),
+              ),
+              NextButton(
+                buttonText: 'Get Started',
+                nextWidget: Agreement(),
+              ),
+            ],
           ),
         ],
       ),
