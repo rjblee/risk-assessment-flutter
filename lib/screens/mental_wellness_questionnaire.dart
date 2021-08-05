@@ -73,7 +73,7 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                                 sliderValue[i] = (newValue.round());
 
                                 // For the negative type of questions, the higher sliderValue will be a low value
-                                if (wellnessQuestion['question_type'] == "negative") {
+                                if (wellnessQuestion['question_type'] == "positive") {
                                   sliderValue[i] = 10 - sliderValue[i];
                                 }
                               },
