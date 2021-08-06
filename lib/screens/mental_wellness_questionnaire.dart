@@ -133,7 +133,7 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
                         // Determine the result section background colour by comparing the threshold values from the backend
                         if (totalCombinedScore >= widget.combinedHigh) {
                           boxColour = kResultHighColour;
-                        } else if (totalCombinedScore >= widget.combinedLow) {
+                        } else if (totalCombinedScore > widget.combinedLow) {
                           boxColour = kResultMediumColour;
                         } else {
                           boxColour = kResultLowColour;
