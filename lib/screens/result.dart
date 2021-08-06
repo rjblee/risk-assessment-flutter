@@ -33,15 +33,6 @@ class _ResultState extends State<Result> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    // const loadingTime = const Duration(milliseconds: 3000);
-    //
-    // new Timer(loadingTime, () {
-    //   setState(() {
-    //     state = 'resultScreen';
-    //   });
-    //   print("timerrrr");
-    // });
   }
 
   @override
