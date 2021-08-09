@@ -202,12 +202,12 @@ class _ResultScreenState extends State<ResultScreen> {
                 SizedBox(height: 20),
                 ElevatedButton(
                   child: Text(
-                    "Button",
+                    "Load Course",
                     style: kBodyTextStyle,
                   ),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return GetBrowser('https://swiftlearning.com/#!/home');
+                      return Courses(contentID: 445, resumeSession: true);
                     }));
                   },
                   style: ElevatedButton.styleFrom(
