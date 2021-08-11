@@ -51,6 +51,13 @@ class _SliderCardState extends State<SliderCard> {
                 });
               },
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('low/unlikely'),
+                Text('high/likely'),
+              ],
+            ),
           ],
         ),
         margin: EdgeInsets.all(12),
