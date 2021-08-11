@@ -31,141 +31,138 @@ class _MentalWellnessQuestionnaireState extends State<MentalWellnessQuestionnair
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar(),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'Mental Wellness Evaluation',
-                textAlign: TextAlign.center,
-                style: kHeaderTextStyle,
+      body: ListView(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'Mental Wellness Evaluation',
+                  textAlign: TextAlign.center,
+                  style: kHeaderTextStyle,
+                ),
               ),
-            ),
-            Container(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'Use the slider to answer how much you agree/disagree to each given question at this moment.',
-                textAlign: TextAlign.center,
-                style: kBodyTextStyle,
+              Container(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'Use the slider to answer how much you agree/disagree to each given question at this moment.',
+                  textAlign: TextAlign.center,
+                  style: kBodyTextStyle,
+                ),
               ),
-            ),
-            Expanded(
-              child: ListView(
-                children: [
-                  StreamBuilder<QuerySnapshot>(
-                    stream: _firestore.collection('wellness_question').orderBy('order').snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        final wellnessQuestions = snapshot.data.docs;
-                        final List<Widget> wellnessQuestionList = [];
-                        sliderValue =
-                            new List<int>.filled(wellnessQuestions.length, 5); // sliderValue is "filled" with value 5
+              StreamBuilder<QuerySnapshot>(
+                stream: _firestore.collection('wellness_question').orderBy('order').snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final wellnessQuestions = snapshot.data.docs;
+                    final List<Widget> wellnessQuestionList = [];
+                    sliderValue =
+                        new List<int>.filled(wellnessQuestions.length, 5); // sliderValue is "filled" with value 5
 
-                        for (var i = 0; i < wellnessQuestions.length; i++) {
-                          var wellnessQuestion = wellnessQuestions[i];
+                    for (var i = 0; i < wellnessQuestions.length; i++) {
+                      var wellnessQuestion = wellnessQuestions[i];
 
-                          wellnessQuestionList.add(
-                            SliderCard(
-                              question: wellnessQuestion['question'],
-                              onChange: (newValue) {
-                                sliderValue[i] = (newValue.round());
+                      wellnessQuestionList.add(
+                        SliderCard(
+                          question: wellnessQuestion['question'],
+                          onChange: (newValue) {
+                            sliderValue[i] = (newValue.round());
 
-                                // For the negative type of questions, the higher sliderValue will be a low value
-                                if (wellnessQuestion['question_type'] == "positive") {
-                                  sliderValue[i] = 10 - sliderValue[i];
-                                }
-                              },
-                            ),
-                          );
-                        }
-
-                        return Column(
-                          children: wellnessQuestionList,
-                        );
-                      } else {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(50),
-                    child: ElevatedButton(
-                      child: Text(
-                        "Finish",
-                        style: kSubHeaderTextStyle,
-                      ),
-                      onPressed: () {
-                        print("Hazard Score from mental page:");
-                        print(widget.totalHazardScore);
-
-                        var totalMentalScore = 0;
-
-                        for (var x = 0; x < sliderValue.length; x++) {
-                          totalMentalScore += sliderValue[x];
-                        }
-                        print("Mental Score from mental page:");
-                        print(totalMentalScore);
-
-                        double compoundingFactor;
-
-                        if (totalMentalScore <= 12) {
-                          compoundingFactor = 1;
-                        } else if (totalMentalScore >= 26) {
-                          compoundingFactor = 2;
-                        } else {
-                          compoundingFactor = 1.5;
-                        }
-
-                        print("Compounding factor: ");
-                        print(compoundingFactor);
-
-                        double totalCombinedScore = widget.totalHazardScore * compoundingFactor;
-
-                        print("Total Combined Score: ");
-                        print(totalCombinedScore);
-
-                        var boxColour;
-
-                        // Determine the result section background colour by comparing the threshold values from the backend
-                        if (totalCombinedScore >= widget.combinedHigh) {
-                          boxColour = kResultHighColour;
-                        } else if (totalCombinedScore > widget.combinedLow) {
-                          boxColour = kResultMediumColour;
-                        } else {
-                          boxColour = kResultLowColour;
-                        }
-
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) {
-                            return Result(
-                              totalHazardScore: widget.totalHazardScore,
-                              totalMentalScore: totalMentalScore,
-                              totalCombinedScore: totalCombinedScore,
-                              boxColour: boxColour,
-                            );
+                            // For the negative type of questions, the higher sliderValue will be a low value
+                            if (wellnessQuestion['question_type'] == "positive") {
+                              sliderValue[i] = 10 - sliderValue[i];
+                            }
                           },
-                        ));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: kAppBlue,
-                        onPrimary: Colors.white,
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
-                      ),
-                    ),
-                  ),
-                ],
+                      );
+                    }
+
+                    return Column(
+                      children: wellnessQuestionList,
+                    );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
               ),
-            ),
-          ],
-        ),
+              Container(
+                padding: EdgeInsets.all(50),
+                width: 400,
+                child: ElevatedButton(
+                  child: Text(
+                    "Finish",
+                    style: kSubHeaderTextStyle,
+                  ),
+                  onPressed: () {
+                    print("Hazard Score from mental page:");
+                    print(widget.totalHazardScore);
+
+                    var totalMentalScore = 0;
+
+                    for (var x = 0; x < sliderValue.length; x++) {
+                      totalMentalScore += sliderValue[x];
+                    }
+                    print("Mental Score from mental page:");
+                    print(totalMentalScore);
+
+                    double compoundingFactor;
+
+                    if (totalMentalScore <= 12) {
+                      compoundingFactor = 1;
+                    } else if (totalMentalScore >= 26) {
+                      compoundingFactor = 2;
+                    } else {
+                      compoundingFactor = 1.5;
+                    }
+
+                    print("Compounding factor: ");
+                    print(compoundingFactor);
+
+                    double totalCombinedScore = widget.totalHazardScore * compoundingFactor;
+
+                    print("Total Combined Score: ");
+                    print(totalCombinedScore);
+
+                    var boxColour;
+
+                    // Determine the result section background colour by comparing the threshold values from the backend
+                    if (totalCombinedScore >= widget.combinedHigh) {
+                      boxColour = kResultHighColour;
+                    } else if (totalCombinedScore > widget.combinedLow) {
+                      boxColour = kResultMediumColour;
+                    } else {
+                      boxColour = kResultLowColour;
+                    }
+
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return Result(
+                          totalHazardScore: widget.totalHazardScore,
+                          totalMentalScore: totalMentalScore,
+                          totalCombinedScore: totalCombinedScore,
+                          boxColour: boxColour,
+                        );
+                      },
+                    ));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: kAppBlue,
+                    onPrimary: Colors.white,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
