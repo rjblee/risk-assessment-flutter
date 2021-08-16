@@ -15,7 +15,7 @@ class LandingPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(vertical: 40),
+                padding: EdgeInsets.symmetric(vertical: 15),
                 child: Column(
                   children: [
                     Image.asset(
