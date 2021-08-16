@@ -36,7 +36,7 @@ class LandingPage extends StatelessWidget {
                     SizedBox(height: 20),
                     Center(
                       child: Image.asset(
-                        'images/SIS Logo.png',
+                        'images/SIS New Logo.png',
                         width: 240,
                       ),
                     ),
