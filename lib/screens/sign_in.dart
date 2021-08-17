@@ -31,7 +31,7 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
                 Container(
-                  child: Image.asset('images/Swift Learning Logo.png', height: 120),
+                  child: Image.asset('images/Swift Learning New Logo.png', height: 100),
                 ),
                 Container(
                   padding: EdgeInsets.all(20),
