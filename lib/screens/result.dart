@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:risk_assessment_flutter/get_hazard_level.dart';
 import 'package:risk_assessment_flutter/get_mental_level.dart';
+import 'package:risk_assessment_flutter/screens/courses.dart';
 import '../get_browser.dart';
 import '../get_combined_level.dart';
 import 'support.dart';
