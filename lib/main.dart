@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
       title: 'SAHARA',
       theme: ThemeData(
         // primaryColor: Color(0XFFB5121B),
-        primaryColor: kAppGreen,
-        // primaryColor: Colors.grey[200],
+        // primaryColor: kAppGreen,
+        primaryColor: Colors.grey[200],
         // scaffoldBackgroundColor: Colors.grey[100],
         // scaffoldBackgroundColor: Color(0xFFDCD6DA),
       ),
