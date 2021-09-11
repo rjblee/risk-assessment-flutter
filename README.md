@@ -2,7 +2,14 @@
 
 ## Description
 
-Safety and Hazard Risk Assessment also known as "SAHARA" Mobile Application for Swift Learning and Safety in Schools is a government funded project for Alberta's high school students' risk assessment for their work safety. 
+Safety and Hazard Risk Assessment also known as "SAHARA" is a mobile application for SWIFT Learning and Safety in Schools. It is a government funded project for Alberta's high school students' safety and hazard risk assessment for their work safety. 
+
+
+## Tech Stacks
+
+- Flutter
+- Dart
+- Firebase Cloud Firestore
 
 
 ## Getting Started
@@ -27,8 +34,10 @@ samples, guidance on mobile development, and a full API reference.
 
 
 
-## Tech Stacks
 
-- Flutter
-- Dart
-- Firebase Cloud Firestore
+## Screenshots
+
+### Translator
+
+<img src="https://github.com/rjblee/dictionary_translator_app/blob/master/assets/screenshots/Screenshot_1595755205.png?raw=true" width="300">  <img src="https://github.com/rjblee/dictionary_translator_app/blob/master/assets/screenshots/Screenshot_1595754883.png?raw=true" width="300">
+
