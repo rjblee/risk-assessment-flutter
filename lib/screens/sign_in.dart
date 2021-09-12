@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:risk_assessment_flutter/appbar.dart';
 import 'package:risk_assessment_flutter/constants.dart';
+import 'package:risk_assessment_flutter/login_buttons.dart';
 import 'package:risk_assessment_flutter/next_button.dart';
 import 'industry.dart';
-import '../get_browser.dart';
+import '../globals.dart' as globals;
 
 class SignIn extends StatefulWidget {
   @override
@@ -11,9 +13,20 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+  @override
+  void dispose() {
+    //whenever the sign in page is disposed it will call the log out function and clear the stored information
+    super.dispose();
+    globals.logout();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: myAppBar(),
       body: Center(
         child: ListView(
@@ -46,12 +59,20 @@ class _SignInState extends State<SignIn> {
                   child: Column(
                     children: [
                       TextFormField(
+                        controller: usernameController,
                         decoration: InputDecoration(
                           hintText: 'Enter your email',
                           labelText: 'Email',
                         ),
                       ),
                       TextFormField(
+                        controller: passwordController,
+                        obscureText: true,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(
+                              //Do not allow any whitespace to be added to the password fields
+                              new RegExp(r"\s\b|\b\s"))
+                        ],
                         decoration: InputDecoration(
                           hintText: 'Enter your password',
                           labelText: 'Password',
@@ -63,14 +84,44 @@ class _SignInState extends State<SignIn> {
                 SizedBox(
                   height: 40,
                 ),
+
+                // Login Button connecting with the Swift Learning authentication
+                // LoginButtons(
+                //   buttonText: "Log In",
+                //   username: usernameController,
+                //   password: passwordController,
+                //   request: 1,
+                //   onChange: (Message) {
+                //     if (Message != "Sucess") //When there is an error message it will display in the bottom
+                //     {
+                //       scaffoldKey.currentState.showSnackBar(SnackBar(content: new Text("$Message")));
+                //       this.passwordController.text = "";
+                //     } else {
+                //       Navigator.push(context, MaterialPageRoute(builder: (context) {
+                //         return Industry();
+                //       }));
+                //       this.passwordController.text = "";
+                //       this.usernameController.text = "";
+                //     }
+                //   },
+                // ),
                 NextButton(
                   buttonText: 'Log In',
                   nextWidget: Industry(),
                 ),
-                NextButton(
-                  buttonText: 'Create an Account',
-                  nextWidget: GetBrowser('https://swiftlearning.com/#!/signIn'),
-                ),
+                /*LoginButtons(
+                    buttonText: 'Log Out',
+                    //username: usernameContoller,
+                    //password: passwordController,
+                    request: 0,
+                    onChange:(Message){
+                      scaffoldKey.currentState.showSnackBar(
+                          SnackBar(content: new Text("$Message"))
+                      );
+                      this.passwordController.text="";
+                      this.usernameController.text="";
+                    }
+                ),*/
               ],
             ),
           ],
