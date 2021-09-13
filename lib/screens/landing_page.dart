@@ -25,6 +25,7 @@ class LandingPage extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(height: 10),
               Container(
                 padding: EdgeInsets.only(bottom: 50),
                 child: Column(
@@ -37,7 +38,7 @@ class LandingPage extends StatelessWidget {
                     Center(
                       child: Image.asset(
                         'images/SIS New Logo.png',
-                        width: 240,
+                        width: 120,
                       ),
                     ),
                   ],
