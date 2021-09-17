@@ -39,4 +39,4 @@ samples, guidance on mobile development, and a full API reference.
 
 ### Translator
 
-<img src="https://github.com/rjblee/risk-assessment-flutter/blob/main/images/screenshots/Screenshot_1631086866.png?raw=true" width="300">  <img src="https://github.com/rjblee/risk-assessment-flutter/blob/main/images/screenshots/Screenshot_1631086881.png?raw=true" width="300">  
+<img src="https://github.com/rjblee/risk-assessment-flutter/blob/main/images/screenshots/Screenshot_1631086866.png?raw=true" width="300">  <img src="https://github.com/rjblee/risk-assessment-flutter/blob/main/images/screenshots/Screenshot_1631086881.png?raw=true" width="300">  <img src="https://github.com/rjblee/risk-assessment-flutter/blob/main/images/screenshots/Screenshot_1631086886.png?raw=true" width="300">
